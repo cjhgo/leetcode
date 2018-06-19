@@ -15,19 +15,19 @@ int main(int argc, char const *argv[])
 	while(true)
 	{	
 		value = 0;
-		// if ((x-1)%y != 0)
-		// {
-		// 	// std::cout<<"hit once"<<std::endl;
-		// 	++y;
-		// 	continue;
-		// }
-		// std::cout<<y<<std::endl;
+		if ((x-1)%y != 0)
+		{
+			// std::cout<<"hit once"<<std::endl;
+			++y;
+			continue;
+		}
 		size_t max_pow=std::ceil(std::log(x)/std::log(y));
-		// if (pow(y,max_pow < x))
-		// {
-		// 	++y;
-		// 	continue;
-		// }
+		if (pow(y,max_pow) < x)
+		{
+			++y;
+			continue;
+		}
+		std::cout<<y<<std::endl;		
 		for (int i = 0; i <= max_pow ; ++i)
 		{
 			value += pow(y,i);
