@@ -19,13 +19,7 @@ unsigned long long int get_n_at_base_with_l(unsigned long long int base, size_t 
 	unsigned long long int sum = 1;
 	for (size_t i = 1; i < len; ++i)
 	{
-		unsigned long long int temp = mypow(base, i);
-		if (std::numeric_limits< unsigned long long >::max() - temp < sum)
-		{
-			break;
-		}
-		else
-			sum += temp;
+		sum += mypow(base, i);
 	}
 	return sum;
 }
@@ -38,16 +32,24 @@ public:
 
     	size_t max_pow=std::ceil(std::log(x)/std::log(2));
     	size_t i = max_pow;
-    	for (; i > 0; --i)
+    	for (; i >= 2; --i)
     	{
-    		unsigned long long int begin = y;
-    		unsigned long long int end = std::numeric_limits< unsigned long long >::max() - y;	
-    		
+    		// std::cout<<i<<"------!\n";	
+    		unsigned long long int begin = std::floor(std::pow(x, 1.0/i));
+    		unsigned long long int end;
+    		if (i == 2)
+    		{
+    			end=x;
+    		}
+    		else
+    			end = std::ceil(std::pow(x,1.0/(i-1)));
     		while(begin <= end)
     		{
 
     			y = (begin+end)/2;
-    			value = get_n_at_base_with_l(y, i);
+				// std::cout<<begin<<"\t"<<y<<"\t"<<end<<std::endl;
+				value = get_n_at_base_with_l(y, i);
+				// std::cout<<y<<"\t"<<value<<std::endl<<std::endl;
     			if (value > x)
     			{
     				end = y-1;
@@ -63,7 +65,7 @@ public:
     		}
     		if (value == x)
     			break;
-    	}    	
+    	}
         return std::to_string(y);
     }
 };
@@ -72,48 +74,8 @@ public:
 int main(int argc, char const *argv[])
 {
 	//std::vector<int> nums={1,3,6,2,5,8,7,11};
-	std::string n="2251799813685247";
-	unsigned long long int x = std::stoll(n);
-	unsigned long long int y=2;
-	unsigned long long int value=0;
-
-	size_t max_pow=std::ceil(std::log(x)/std::log(2));
-	size_t i = max_pow;
-	for (; i > 0; --i)
-	{
-
-		std::cout<<i<<"------!\n";
-		std::cout<<std::pow(x, 1.0/i)<<"\t"<<std::pow(x,1.0/(i-1))<<std::endl;
-		unsigned long long int begin = y;
-		unsigned long long int end = std::numeric_limits< unsigned long long >::max() - y;	
-		
-		while(begin <= end)
-		{
-
-			y = (begin+end)/2;
-			if (y == 1125899906842624 and i == 52)
-			{
-				std::cout<<" break at here\n";
-			}
-			std::cout<<begin<<"\t"<<y<<"\t"<<end<<std::endl;
-			value = get_n_at_base_with_l(y, i);
-			std::cout<<y<<"\t"<<value<<std::endl<<std::endl;
-			if (value > x)
-			{
-				end = y-1;
-			}
-			else if ( value == x)
-			{
-				break;
-			}
-			else if ( value < x)
-			{
-				begin = y+1;
-			}
-		}
-		if (value == x)
-			break;
-	}
-	std::cout<<i<<"\t"<<y<<"\t"<<value;
+	std::string n="727004545306745403";
+	Solution s;
+	std::cout<<s.smallestGoodBase(n)<<std::endl;
 	return 0;
 }
