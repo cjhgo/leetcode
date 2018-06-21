@@ -39,10 +39,6 @@ public:
 
 int main(int argc, char const *argv[])
 {
-
-
-
-
 	vector<string> list1 = {"Shogun","Tapioca Express","Burger King","KFC"};
     //{"Shogun","Tapioca Express","Burger King","KFC"};
     vector<string> list2 = {"KFC","Shogun","Burger King"};
