@@ -10,7 +10,7 @@ struct MyInterval
     size_t start;
     size_t end;
     MyInterval* next;
-    MyInterval():start(0),end(pow(10,9))
+    MyInterval():start(0),end(0)
     {};
     MyInterval(size_t b ,size_t e):start(b),end(e)
     {};
@@ -33,83 +33,28 @@ public:
         }
         cout<<"current interval e"<<endl;
     };
+    /*
+       for (auto p:v) {
+            if (p.first <= s && p.second > s) return false;
+            if (s <= p.first && e > p.first) return false;
+        }
+        v.push_back({s,e});
+    */
     bool book(int start, int end) 
     {
-        cout<<"book "<<start<<"#"<<end<<endl;
-        MyInterval* cur = ptr;
-        end = end-1;
+        MyInterval * cur = ptr;
         while(cur != NULL)
         {
-            if( start < cur->start )
-            {
-                break;
-            }
-            else if (start == cur->start)
-            {
-                if( end < cur->end)
-                {
-                    cur->start = end+1;
-                    print_interval();
-                    return true;
-                }
-                else if( end == cur->end)
-                {
-                    MyInterval* ttt = cur->next;
-                    if( ttt != NULL)
-                    {
-                        cur->start = ttt->start;
-                        cur->end = ttt->end;
-                        cur->next = ttt->next;
-                        delete ttt;
-                    }
-                    else
-                        cur = NULL;
-                    print_interval();
-                    return true;
-                }
-                else if( end > cur->end)
-                {
-                    break;
-                }
-            }
-            else if ( start > cur->start )
-            {
-                if(start < cur->end)
-                {
-                    if(end < cur->end)
-                    {                    
-                        size_t new_start = end+1;
-                        size_t new_end = cur->end;
-                        MyInterval* temp = new MyInterval(new_start, new_end);
-                        temp->next = cur->next;
-                        cur->next = temp;                    
-                        cur->end=start-1;
-                        print_interval();
-                        return true;
-                    }
-                    else if(end == cur->end )
-                    {
-                        cur->end=start-1;
-                        print_interval();
-                        return true;
-                    }
-                    else if(end > cur->end)
-                    {                    
-                        break;
-                    }
-                }
-                else if( start == cur->end)
-                {
-                    break;
-                }
-                else if( start > cur->end)
-                {
-                    cur=cur->next;
-                    continue;
-                }
-            }
+            if(cur->start <= start && cur->end > start)
+            return false;
+            if(cur->start >= start && cur->start < end)
+            return false;
+            cur = cur->next;
         }
-        return false;
+
+        MyInterval* temp = new MyInterval(start ,end);
+        ptr->next = temp;
+        return true;
     }
 private:
     MyInterval* ptr; 
