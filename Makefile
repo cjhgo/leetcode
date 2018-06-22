@@ -1,4 +1,4 @@
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 LIBS  = -lm
 CXX=g++
 SRCS = $(wildcard *.cpp)
