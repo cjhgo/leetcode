@@ -7,20 +7,19 @@
 using namespace std;
 struct MyInterval
 {
-    size_t start;
-    size_t end;
+    int start;
+    int end;
     MyInterval* next;
-    MyInterval():start(0),end(0)
+    MyInterval():start(0),end(0),next(nullptr)
     {};
-    MyInterval(size_t b ,size_t e):start(b),end(e)
+    MyInterval(int b ,int e):start(b),end(e),next(nullptr)
     {};
 };
 class MyCalendar {
 public:
     MyCalendar()
     {
-        ptr = new MyInterval();
-        ptr->next = NULL;
+        ptr = nullptr;
     };
     void print_interval()
     {
@@ -45,15 +44,23 @@ public:
         MyInterval * cur = ptr;
         while(cur != NULL)
         {
-            if(cur->start <= start && cur->end > start)
-            return false;
-            if(cur->start >= start && cur->start < end)
-            return false;
-            cur = cur->next;
+            if( start < cur->end and end > cur->start)
+                return false;
+            else
+                cur = cur->next;
         }
 
-        MyInterval* temp = new MyInterval(start ,end);
-        ptr->next = temp;
+        if( ptr == nullptr )
+        {
+            MyInterval* temp = new MyInterval(start ,end);
+            ptr = temp;
+        }
+        else
+        {
+            MyInterval* temp = new MyInterval(start ,end);
+            temp->next = ptr->next;
+            ptr->next = temp;
+        }                    
         return true;
     }
 private:
@@ -71,35 +78,12 @@ private:
 int main(int argc, char const *argv[])
 {
     MyCalendar obj =  MyCalendar();
-cout<< obj.book(20,29)<<endl;
-cout<< obj.book(13,22)<<endl;
-cout<< obj.book(44,50)<<endl;
-cout<< obj.book(1,7)<<endl;
-cout<< obj.book(2,10)<<endl;
-cout<< obj.book(14,20)<<endl;
-cout<< obj.book(19,25)<<endl;
-cout<< obj.book(36,42)<<endl;
-cout<< obj.book(45,50)<<endl;
 cout<< obj.book(47,50)<<endl;
-cout<< obj.book(39,45)<<endl;
-cout<< obj.book(44,50)<<endl;
-cout<< obj.book(16,25)<<endl;
-cout<< obj.book(45,50)<<endl;
-cout<< obj.book(45,50)<<endl;
-cout<< obj.book(12,20)<<endl;
-cout<< obj.book(21,29)<<endl;
-cout<< obj.book(11,20)<<endl;
-cout<< obj.book(12,17)<<endl;
-cout<< obj.book(34,40)<<endl;
-cout<< obj.book(10,18)<<endl;
-cout<< obj.book(38,44)<<endl;
-cout<< obj.book(23,32)<<endl;
-cout<< obj.book(38,44)<<endl;
-cout<< obj.book(15,20)<<endl;
-cout<< obj.book(27,33)<<endl;
-cout<< obj.book(34,42)<<endl;
-cout<< obj.book(44,50)<<endl;
-cout<< obj.book(35,40)<<endl;
-cout<< obj.book(24,31)<<endl;
+cout<< obj.book(33,41)<<endl;
+cout<< obj.book(25,32)<<endl;
+cout<< obj.book(19,25)<<endl;
+cout<< obj.book(3,8)<<endl;
+cout<< obj.book(8,13)<<endl;
+cout<< obj.book(18,27)<<endl;
 	return 0;
 }
