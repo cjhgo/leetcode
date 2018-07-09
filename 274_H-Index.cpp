@@ -7,7 +7,7 @@ public:
     int hIndex(vector<int>& citations) 
     {
         sort(citations.begin(), citations.end());
-        for(int i = citations.size(); i >= 0 ; i--)
+        for(size_t i = citations.size(); i >= 0 ; i--)
         {
             auto pos = std::lower_bound(citations.begin(), citations.end(), i);
             if(pos != citations.end())
@@ -20,7 +20,7 @@ public:
         return 0;
     }
 };
-int main(int argc, char* argv)
+int main(int argc, char* argv[])
 {
     vector<int> citations={3,0,6,1,5};
     Solution s;
