@@ -1,41 +1,33 @@
 #include<vector>
 #include<set>
 #include<algorithm>
-#include<utility>
 #include<iostream>
-#include<cstdlib>
 using namespace std;
 class Solution {
 public:
     int findPairs(vector<int>& nums, int k) 
     {
-        int n = 0;
         set< pair<int,int> > pairset;
-        // sort( nums.begin(), nums.end() );
-        // nums.erase( unique( nums.begin(), nums.end() ), nums.end() );        
+        sort( nums.begin(), nums.end() );
         size_t len = nums.size();
-        if(len > 0){
-        for(size_t i = 0; i < len-1; i++)
+        if(len > 0)
         {
-            for(size_t j = i+1; j < len; j++)
+            for(size_t i = 0; i < len-1; i++)
             {
-                if(abs(nums[i]-nums[j]) == k)
+                for(size_t j = i+1; j < len; j++)
                 {
-                    cout<<nums[i]<<"#"<<nums[j]<<endl;
-                    int a = max(nums[i], nums[j]);
-                    int b = min(nums[i], nums[j]);
-                    pair<int,int> x(a, b);
-                    pairset.insert(x);
+                    if(abs(nums[i]-nums[j]) == k)
+                    {
+                        pair<int,int> x(nums[i], nums[j]);
+                        pairset.insert(x);
+                    }
                     
-                    // ++n;
                 }
-                
             }
-        }
-        return pairset.size();
+            return pairset.size();
         }
         else
-        return 0;
+            return 0;
     }
 };
 
@@ -43,8 +35,8 @@ public:
 int main(int argc, char const *argv[])
 {
     Solution s;
-    //vector<int> nums={1,1,1,2,1};
-    vector<int> nums={};
+    vector<int> nums={1,1,1,2,1};
+    //vector<int> nums={};
     cout<<s.findPairs(nums,0);
     return 0;
 }
