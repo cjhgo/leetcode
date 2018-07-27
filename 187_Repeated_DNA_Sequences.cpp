@@ -1,4 +1,6 @@
+#include<algorithm>
 #include<vector>
+#include<set>
 #include <bitset>
 #include<map>
 #include<string>
@@ -17,16 +19,6 @@ public:
             case 'T' : return 3;
         }
     }
-    char val2char(unsigned int x)
-    {
-        switch (x)
-        {
-            case 0  : return 'A' ;
-            case 1  : return 'C' ;
-            case 2  : return 'G' ;
-            case 3  : return 'T' ;
-        }
-    }
     unsigned int hashstr(string s)
     {
         if( s.size() != 10 )
@@ -36,56 +28,30 @@ public:
             unsigned int number = 0;
             for(int i = 0; i < 10; i++)
             {
-                unsigned int temp = char2val(s[i]);
-                unsigned int temp2 = (temp << (18-2*i));
-                // cout<<bitset<20>(number)<<endl
-                //     <<bitset<20>(temp)<<endl
-                //     <<bitset<20>(temp2)<<endl;
-                number |= temp2;
-                //cout<<bitset<20>(number)<<endl<<endl;
+                number |= (  char2val(s[i])<< (18-2*i) );
             }
             return number;
         }
     }
-    string restore_str(unsigned int number)
-    {        
-        stringstream ss;
-        for(size_t i = 0; i < 10; i++)
-        {
-            unsigned int temp = number >> (18-2*i);
-            unsigned int temp2 = temp & 3UL;
-            char x = val2char(temp2);
-            //ss<<val2char(temp2);
-            // cout<<bitset<20>(number)<<endl
-            //     <<bitset<20>(temp)<<endl
-            //     <<bitset<20>(temp2)<<endl
-            //     <<x<<endl;
-            ss<<x;
-        }
-        return ss.str();
-    }
     vector<string> findRepeatedDnaSequences(string s) {
-        vector<string> temp;
+        set<string> temp;
+        vector<string> result;
         if(s.size() < 10 )
-        return temp;
-        map<unsigned int,int> str_cnt;
+        return result;
+        set<unsigned int> str_v;
         for(size_t i = 0; i <= s.size()-10;i++)
         {
             
             string sub_i = s.substr(i, 10);
             unsigned int key = hashstr(sub_i);
-            str_cnt[key]++;
-        }        
-        for(auto e : str_cnt)
-        {            
-            cout<<e.first<<"#"<<e.second<<endl;
-            if(e.second > 1)
+            if(str_v.count(key))
             {
-                string t = restore_str(e.first);
-                temp.push_back(t);
+                temp.insert(sub_i);
             }
+            else
+                str_v.insert(key);
         }        
-        return temp;
+        return vector<string>(temp.begin(),temp.end());
     }
 };
 
