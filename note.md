@@ -189,3 +189,7 @@ for sub_i in str
 不用存map,根据count来返回结果
 用set来存放key,遍历子字符串的时候,count, >1的时候insert
 要用set 而非 vector存放key,不然count的时候超时
+## 394_Decode_String
+corner case
+两次提交失败,测试用例
+怎么学会,用递归来自动处理corner case?
