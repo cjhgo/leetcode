@@ -109,6 +109,8 @@ public:
                 }
                 else
                 {
+                    //handle case "3[a]2[b4[F]c]"
+                    //when c come in , we need to judge type of top 
                     if(mystack.top().type == 1)
                     {
                         mystack.top().base += e.base;
@@ -135,6 +137,9 @@ public:
                 }
                 else
                 {
+                    //handle case "2[2[b]]" vs  "2[xx2[b]]"
+                    //when 2[b] become bb and  come in 
+                    //we need to judge type of top 
                     if(mystack.top().type == 1)
                     {
                         mystack.top().base += temp;
@@ -153,8 +158,8 @@ public:
 int main(int argc, char const *argv[])
 {
     Solution s;
-    string str = "2[abc]3[cd]ef";//
-    //string str = "3[a]2[b4[F]c]";//"2[2[b]]";//2[abc]3[cd]ef";
+    //string str = "2[abc]3[cd]ef";
+    string str = "3[a]2[b4[F]c]";//"2[2[b]]";//2[abc]3[cd]ef";
     cout<<s.decodeString(str)<<endl;
     return 0;
 }

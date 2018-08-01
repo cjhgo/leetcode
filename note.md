@@ -191,5 +191,44 @@ for sub_i in str
 要用set 而非 vector存放key,不然count的时候超时
 ## 394_Decode_String
 corner case
-两次提交失败,测试用例
+两个错误/两次提交失败,测试用例
+
++ `3[a2[b]] 3[2[b]]`
+2[b]变成bb入栈的时候,栈顶可能是str也可能是[
++ 新入一个type1型的token的时候,也要判断栈顶是str还是[
+
+
 怎么学会,用递归来自动处理corner case?
+递归版这么短
+```cpp
+class Solution {
+public:
+    string decodeString(const string& s, int& i) {
+        string res;
+        
+        while (i < s.length() && s[i] != ']') {
+            if (!isdigit(s[i]))
+                res += s[i++];
+            else {
+                int n = 0;
+                while (i < s.length() && isdigit(s[i]))
+                    n = n * 10 + s[i++] - '0';
+                    
+                i++; // '['
+                string t = decodeString(s, i);
+                i++; // ']'
+                
+                while (n-- > 0)
+                    res += t;
+            }
+        }
+        
+        return res;
+    }
+
+    string decodeString(string s) {
+        int i = 0;
+        return decodeString(s, i);
+    }
+};
+```
