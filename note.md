@@ -12,6 +12,9 @@ http://zxi.mytechroad.com/blog/greedy/leetcode-621-task-scheduler/
 http://fisherlei.blogspot.com/
 
 
+task scheduler problem greedy
+Partition Equal Subset Sum
+
 
 https://leetcode.com/problems/can-i-win/
 https://leetcode.com/problems/ransom-note/description/
@@ -41,6 +44,15 @@ https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
 https://leetcode.com/problems/erect-the-fence/description/
 494
 https://leetcode.com/problems/target-sum/
+726
+https://leetcode.com/problems/number-of-atoms/description/
+
+https://leetcode.com/problems/word-frequency
+https://leetcode.com/problems/kth-largest-element-in-an-array
+https://leetcode.com/problems/sort-characters-by-frequency
+https://leetcode.com/problems/split-array-into-consecutive-subsequences
+https://leetcode.com/problems/top-k-frequent-words
+
 ## Smallest Good Base @18.06.20
 
 三种尝试
@@ -200,6 +212,7 @@ corner case
 
 怎么学会,用递归来自动处理corner case?
 递归版这么短
+https://leetcode.com/problems/decode-string/discuss/87543/0ms-simple-C++-solution
 ```cpp
 class Solution {
 public:
@@ -232,3 +245,9 @@ public:
     }
 };
 ```
+
+## 347_Top_K_Frequent_Elements
+数据结构的胜利?
+先遍历,map cnt
+然后cnt map 我用的set
+好像效率更高的solution用的是heap?? try it
