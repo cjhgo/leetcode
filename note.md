@@ -251,3 +251,9 @@ public:
 先遍历,map cnt
 然后cnt map 我用的set
 好像效率更高的solution用的是heap?? try it
+## 338_Counting_Bits
+题目提升不要使用标准库
+但是我用了标准库,好像beats 98%
+看一下,没用库的思路是什么
+这个思路才是这个题目的意义
+https://leetcode.com/problems/number-of-1-bits/description/
