@@ -257,3 +257,55 @@ public:
 看一下,没用库的思路是什么
 这个思路才是这个题目的意义
 https://leetcode.com/problems/number-of-1-bits/description/
+## 287_Find_the_Duplicate_Number
+```cpp
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
+        int left = 0, right = nums.size() - 1;
+        while (left < right){
+            int mid = (left + right) / 2;
+            /*
+            if (nums[mid] >= mid + 1){
+                left = mid + 1;
+            }
+            else{
+                right = mid;
+            }
+            */
+            if (nums[mid] >= mid + 1)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return nums[left];
+    }
+};
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+    
+        if (nums.empty())
+            return -1;
+            
+        int slow = nums[0];
+        int fast = nums[nums[0]];
+        
+        while (slow != fast){
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+
+        }
+        slow = 0;
+        
+        while (slow != fast){
+            slow = nums[slow];
+            fast = nums[fast];
+
+        }
+        
+        return slow;
+    }
+```
+这些提交都什么道理?
