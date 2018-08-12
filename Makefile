@@ -1,6 +1,6 @@
 CFLAGS = -Wall -g
 LIBS  = -lm
-CXX=g++
+CXX=/usr/bin/g++-6
 SRCS = $(wildcard *.cpp)
 
 PROGS = $(patsubst %.cpp,bin/%,$(SRCS))
