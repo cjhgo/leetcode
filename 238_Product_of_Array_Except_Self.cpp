@@ -6,16 +6,14 @@ public:
     vector<int> productExceptSelf(vector<int>& nums) 
     {
         vector<int> res;
+        int product = 1;
+        for(auto e: nums)
+        {
+            product *= e;
+        }
         for(int i = 0; i < nums.size(); i++)
         {
-            int temp = 1;
-            for(int j = 0; j < nums.size(); j++)
-            {
-                if( j != i)
-                {
-                    temp *= nums[j];
-                }
-            }
+            int temp = product / (nums[i] == 0 ? 1 : nums[i]);
             res.push_back(temp);
         }
         return res;
