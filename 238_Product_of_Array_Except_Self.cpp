@@ -5,16 +5,15 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) 
     {
-        vector<int> res;
-        int product = 1;
-        for(auto e: nums)
+        size_t n = nums.size();
+        vector<int> res(n,1);
+        int left=1, right=1;
+        for(size_t i = 0; i < n; i++)
         {
-            product *= e;
-        }
-        for(int i = 0; i < nums.size(); i++)
-        {
-            int temp = product / (nums[i] == 0 ? 1 : nums[i]);
-            res.push_back(temp);
+            res[i] *= left;
+            res[n-1-i] *= right;
+            left *= nums[i];
+            right *= nums[n-1-i];
         }
         return res;
     }
