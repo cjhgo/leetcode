@@ -311,3 +311,17 @@ public:
 这些提交都什么道理?
 
 Next challenges: First Missing PositiveSingle NumberLinked List Cycle IIMissing NumberSet Mismatch
+## 233_Number_of_Digit_One
+此问题要求一次遍历就得到结果
+比如是要保留已经计算出的结果
+
+core idea:`res[i] = left part * right part`
+
+First, consider O(n) time and O(n) space solution.
+then
+O(n) time and O(1) space
+
+从左向右遍历的时候
+res[i]=left part
+从右向左遍历的时候
+res[i]=right part
