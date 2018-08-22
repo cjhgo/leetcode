@@ -325,3 +325,37 @@ O(n) time and O(1) space
 res[i]=left part
 从右向左遍历的时候
 res[i]=right part
+## 075_Sort_Colors
+couting sort 思路 o(2n) two pass
+one pass的solution
+一次遍历,in place sort
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int n=nums.size(), zero=0, two=n-1;
+        for(int i=0;i<=two;){
+            if(nums[i]==0){
+                swap(nums[i],nums[zero]);
+                zero++;
+                i++;
+            }
+            else if(nums[i]==2){
+                swap(nums[i],nums[two]);
+                two--;
+            }
+            else
+                i++;
+        }
+    }
+};
+```
+sort之后的nums是这样一个数组
+[0000...111....2222]
+zero two是1范围的左右边界
+zero左边的都是0
+two右边的都是1
+i从0到two开始遍历
+遇到0, 交换到zero左边, zero++, i++
+遇到1, i++
+遇到2, 交换到two右边, two--, i++
