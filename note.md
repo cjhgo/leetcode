@@ -52,6 +52,8 @@ https://leetcode.com/problems/kth-largest-element-in-an-array
 https://leetcode.com/problems/sort-characters-by-frequency
 https://leetcode.com/problems/split-array-into-consecutive-subsequences
 https://leetcode.com/problems/top-k-frequent-words
+https://leetcode.com/problems/subsets-ii/description/
+https://leetcode.com/problems/letter-case-permutation/description/
 
 ## Smallest Good Base @18.06.20
 
