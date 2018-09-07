@@ -54,6 +54,7 @@ https://leetcode.com/problems/split-array-into-consecutive-subsequences
 https://leetcode.com/problems/top-k-frequent-words
 https://leetcode.com/problems/subsets-ii/description/
 https://leetcode.com/problems/letter-case-permutation/description/
+https://leetcode.com/problems/combinations
 
 ## Smallest Good Base @18.06.20
 
@@ -368,3 +369,22 @@ i从0到two开始遍历
 如果n=100,2^100这个数字已经无法用size_t表示了,也就无法遍历了
 100个元素的list的所有子集就不能求了??
 一定有其他高效的算法吧??
+## 046_Permutations
+给出一个长度为n的vector的全排列
+我的思路
+看成一个n位的n进制的数
+全排列对应的数在0-n^n中
+全排列各位之和=0+1+...+(n-1)
+且全排列中不含重复元素
+遍历0-n^n,根据进制转换,求得(i)的排列,
+根据上述两条性质,判断次排列是不是一个全排列
+000
+001
+002
+010
+011
+012
+.
+.
+.
+222

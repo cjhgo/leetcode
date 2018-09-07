@@ -48,8 +48,7 @@ public:
             for(int x = 0; x < n;x++)
             tempv[x] = nums[resv[l][x]];
             resv[l]=tempv;
-        }
-        
+        }        
         for(auto e:resv)
         {
             for(auto ee: e)
