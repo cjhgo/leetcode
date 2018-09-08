@@ -26,6 +26,28 @@ public:
         }        
         return res;
     }
+    vector<int> twoSum2(vector<int>& nums, int target) 
+    {
+        size_t n = nums.size();
+        vector<int> result(2,0);
+        int i;
+        for(i = 0;i < n; i++)
+        {
+            int to_find = target-nums[i];
+            cout<<to_find<<endl;
+            auto res = find(nums.begin(),nums.end(), target-nums[i]);
+            auto index = distance(nums.begin(), res);
+            if(res != nums.end() and index != i)
+            {
+                
+                result[0]=i;
+                result[1]=index;
+                cout<<*res<<"\t"<<i<<distance(nums.begin(), res)<<endl;
+                break;
+            }
+        }        
+        return result;
+    }
 
 };
 int main(int argc, char const *argv[])
