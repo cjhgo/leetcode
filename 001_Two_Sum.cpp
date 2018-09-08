@@ -48,7 +48,27 @@ public:
         }        
         return result;
     }
-
+    vector<int> twoSum3(vector<int>& nums, int target) 
+    {
+        size_t n = nums.size();
+        vector<int> result(2,0);
+        map<int,int> value_to_index;
+        int i;
+        for(i = 0;i < n; i++)
+        {
+            int to_find = target-nums[i];
+            auto res = value_to_index.find(to_find);
+            
+            if(res != value_to_index.end() )
+            {            
+                result[0]=i;
+                result[1]=value_to_index[to_find];
+                break;
+            }
+            value_to_index[nums[i]] = i;
+        }        
+        return result;
+    }
 };
 int main(int argc, char const *argv[])
 {
