@@ -56,6 +56,9 @@ https://leetcode.com/problems/subsets-ii/description/
 https://leetcode.com/problems/letter-case-permutation/description/
 https://leetcode.com/problems/combinations
 
+https://leetcode.com/problems/lru-cache/description/
+
+
 ## Smallest Good Base @18.06.20
 
 三种尝试
@@ -388,3 +391,19 @@ i从0到two开始遍历
 .
 .
 222
+## 001_Two_Sum
+找到数组中哪两个数之和=目标值
+我的naive的思路
+$C_n^2=\frac{n(n-1)}{2}
+两重for循环, 
+判断
+nums[i]+nums[j] ?= target $
+
+最优解的思路,
+空间换时间
+把遍历过的value->index存起来
+在map中find target-nums[i]
+
+既然可以在map中在find,那么直接在原始数组中find(要注意判断!=i)会怎样
+结果表明,比在find中慢
+因为map find和vector find算法不同
