@@ -1,0 +1,57 @@
+#include<iostream>
+using namespace std;
+
+struct ListNode 
+{
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution 
+{
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) 
+    {
+        ListNode * result = new ListNode(0);
+        ListNode *cur = result;
+        int carry=0;
+        while(l1 != nullptr or l2 != nullptr)        
+        {
+            cur->next =new ListNode(0);
+            int v1,v2;
+            v1=v2=0;
+            if(l1 != nullptr)
+            {
+                v1=l1->val;
+                l1=l1->next;                
+            }
+            if(l2 != nullptr)
+            {
+                v2=l2->val;
+                l2=l2->next;                
+            }
+            int temp = v1+v2+carry;
+            int value = temp % 10;            
+            cur->val = value;
+            carry = temp / 10;            
+            cur=cur->next;
+        }    
+        return result;
+    }
+};
+int main(int argc, char const *argv[])
+{
+    ListNode a(2),b(4),c(3),h(8);
+    ListNode d(5),e(6),f(4);
+    a.next = &b;
+    b.next=&c;
+    // c.next=&h;
+
+    d.next=&e;
+    e.next=&f;
+    Solution s;
+    ListNode* res = s.addTwoNumbers(&a,&d);
+    cout<<res->val<<res->next->val<<res->next->next->val<<res->next->next->next->val<<endl;
+    return 0;
+}
