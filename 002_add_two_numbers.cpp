@@ -15,10 +15,9 @@ public:
     {
         ListNode * result = new ListNode(0);
         ListNode *cur = result;
-        int carry=0;
-        while(l1 != nullptr or l2 != nullptr)        
-        {
-            cur->next =new ListNode(0);
+        int carry=0;        
+        while(l1 != nullptr or l2 != nullptr or carry != 0)        
+        {            
             int v1,v2;
             v1=v2=0;
             if(l1 != nullptr)
@@ -35,23 +34,29 @@ public:
             int value = temp % 10;            
             cur->val = value;
             carry = temp / 10;            
-            cur=cur->next;
+            if(l1 != nullptr or l2 != nullptr or carry != 0)
+            {            
+            cur->next =new ListNode(0);
+            cur=cur->next;            
+            }
         }    
         return result;
     }
 };
 int main(int argc, char const *argv[])
 {
-    ListNode a(2),b(4),c(3),h(8);
+    ListNode a(5),b(4),c(3),h(8);
     ListNode d(5),e(6),f(4);
-    a.next = &b;
-    b.next=&c;
+    // a.next = &b;
+    // b.next=&c;
     // c.next=&h;
 
-    d.next=&e;
-    e.next=&f;
+    // d.next=&e;
+    // e.next=&f;
     Solution s;
     ListNode* res = s.addTwoNumbers(&a,&d);
-    cout<<res->val<<res->next->val<<res->next->next->val<<res->next->next->next->val<<endl;
+    cout<<res->val<<res->next->val;
+    //<<res->next->next->val;
+    //<<res->next->next->next->val<<endl;
     return 0;
 }
