@@ -59,6 +59,12 @@ https://leetcode.com/problems/combinations
 https://leetcode.com/problems/lru-cache/description/
 
 
+https://leetcode.com/problems/valid-parentheses/description/
+https://leetcode.com/problems/merge-two-sorted-lists/description/
+https://leetcode.com/problems/3sum
+https://leetcode.com/problems/4sum
+
+
 ## Smallest Good Base @18.06.20
 
 三种尝试
@@ -407,3 +413,21 @@ nums[i]+nums[j] ?= target $
 既然可以在map中在find,那么直接在原始数组中find(要注意判断!=i)会怎样
 结果表明,比在find中慢
 因为map find和vector find算法不同
+## 002_add_two_numbers
+这个题的解法和归并排序很像
+但是我的写法
+要在while loop 内部再判断一边条件
+否则会多出一个node
+因为我每次new 的 node是下一轮的
+很丑陋
+要想避免这个多出的判断,new 的node必须是用于这一轮的
+
+怎么避免这一个多出的判断 -- 引入header node
+第一次也尝试了,但是当时没写对,
+```
+header=new node
+cur=header
+while 
+cur->next=new node
+cur=cur->next
+```
