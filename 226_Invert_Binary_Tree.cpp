@@ -45,6 +45,7 @@ int main(int argc, char const *argv[])
     c.right=&e;
     Solution s;
     s.invertTree(&a);
-    cout<<a.left->val<<endl<<a.right->val;
+    cout<<a.left->val<<endl<<a.right->val<<endl;
+    cout<<c.left->val<<endl<<c.right->val<<endl;
     return 0;
 }
