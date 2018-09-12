@@ -63,7 +63,14 @@ https://leetcode.com/problems/valid-parentheses/description/
 https://leetcode.com/problems/merge-two-sorted-lists/description/
 https://leetcode.com/problems/3sum
 https://leetcode.com/problems/4sum
-
+https://leetcode.com/problems/multiply-strings
+https://leetcode.com/problems/add-binary
+https://leetcode.com/problems/sum-of-two-integers
+https://leetcode.com/problems/add-strings
+https://leetcode.com/problems/add-two-numbers-ii
+https://leetcode.com/problems/closest-leaf-in-a-binary-tree
+https://leetcode.com/problems/second-minimum-node-in-a-binary-tree
+https://leetcode.com/problems/serialize-and-deserialize-binary-tree
 
 ## Smallest Good Base @18.06.20
 
