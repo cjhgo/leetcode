@@ -17,11 +17,14 @@ public:
                 {
                     sub_i += s[j];
                 }
+                else
+                break;
             }
             if(sub_i.length() > max_length)
             max_length = sub_i.length();
             cout<<sub_i<<endl;
         }
+        return max_length;
     }
 };
 int main(int argc, char const *argv[])
