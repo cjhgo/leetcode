@@ -4,10 +4,18 @@
 #include<iostream>
 #include<algorithm>
 using namespace std;
-
 class Solution 
 {
 public:
+	int reverse2(int x) 
+    {
+		long long t = 0;
+		for( ; x ; x /= 10){
+			t = t * 10 + x % 10;
+			if (t > INT_MAX || t < INT_MIN) return 0;
+		}
+		return t;
+	}
     int reverse(int x) 
     {
         int  negative = 1;
