@@ -12,6 +12,19 @@ http://zxi.mytechroad.com/blog/greedy/leetcode-621-task-scheduler/
 http://fisherlei.blogspot.com/
 
 
+## leetcode pattern
+
+https://medium.com/leetcode-patterns
+
+backtracking
+sliding windows
+dfs+bfs
+bfs+dfs
+iterative travsersal on tree
+https://medium.com/@sourabreddy
+https://www.reddit.com/r/cscareerquestions/comments/7nsq1l/leetcode_problems_decomposition_into_patterns/
+https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/sliding-window-algorithm-template-to-solve-all-the-leetcode-substring-search-problem
+
 task scheduler problem greedy
 Partition Equal Subset Sum
 
@@ -438,3 +451,82 @@ while
 cur->next=new node
 cur=cur->next
 ```
+## sliding window pattern
+同样是滑动窗口的思路
+我的solution还是没有别人的快?!
+https://medium.com/leetcode-patterns/leetcode-pattern-2-sliding-windows-for-strings-e19af105316b
+https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/sliding-window-algorithm-template-to-solve-all-the-leetcode-substring-search-problem
+### 003_Longest_Substring_Without_Repeating_Characters.cpp
+
+https://leetcode.com/submissions/detail/176867828/
+```c++
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        string max, curr;
+        size_t lens=s.length();
+        for (size_t i=0; i< lens; ++i)
+        {
+            size_t pos=curr.find(s[i]);
+            if (pos != string::npos)
+            {
+                if (curr.length() > max.length()) max=curr;
+                curr=curr.substr(pos+1);
+            }
+            curr+=s[i];
+        }
+        if (curr.length() > max.length()) max=curr;
+        return max.length();
+    }
+};
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        vector<int> dict(256, -1);
+        int maxLen = 0, start = -1;
+        for (int i = 0; i != s.length(); i++) {
+            if (dict[s[i]] > start)
+                start = dict[s[i]];
+            dict[s[i]] = i;
+            maxLen = max(maxLen, i - start);
+        }
+        return maxLen;
+    }
+};
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        set<char> s1;
+        int len = s.length();
+        int i = 0, j = 0, max_len = 0;
+        while (i < len)
+        {
+            if (s1.find(s[i]) == s1.end())
+            {
+                s1.insert(s[i]);
+                i++;
+                max_len = max(max_len, i - j);
+            }
+            else
+            {
+                s1.erase(s[j++]);
+            }
+        }
+        return max_len;
+    }
+};
+```
+### 076_Minimum_Window_Substring
+https://leetcode.com/submissions/detail/177087471/
+### 438_Find_All_Anagrams_in_a_String
+https://leetcode.com/submissions/detail/177085375/
+## 007_Reverse_Integer
+这是一道easy 难度的题目
+但是却submit 了好几次,才ac
+solution有两种
+第一种是一步步取余数
+代码简洁优雅
+第二种是number->string->number
+即
+to_string stoi/stoll
+需要注意int32_t/int64_t表示范围的判断
