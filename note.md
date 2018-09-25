@@ -84,6 +84,8 @@ https://leetcode.com/problems/add-two-numbers-ii
 https://leetcode.com/problems/closest-leaf-in-a-binary-tree
 https://leetcode.com/problems/second-minimum-node-in-a-binary-tree
 https://leetcode.com/problems/serialize-and-deserialize-binary-tree
+https://leetcode.com/problems/reverse-vowels-of-a-string/description/
+https://leetcode.com/problems/orderly-queue/description/
 
 ## Smallest Good Base @18.06.20
 
@@ -451,7 +453,7 @@ while
 cur->next=new node
 cur=cur->next
 ```
-## sliding window pattern
+## sliding window pattern/双指针 思想
 同样是滑动窗口的思路
 我的solution还是没有别人的快?!
 https://medium.com/leetcode-patterns/leetcode-pattern-2-sliding-windows-for-strings-e19af105316b
@@ -530,3 +532,17 @@ solution有两种
 即
 to_string stoi/stoll
 需要注意int32_t/int64_t表示范围的判断
+## 006_ZigZag_Conversion
+官方给出的solution 有两种
++ Approach 1: Sort by Row
+遍历string,每个string属于哪一行是确定的
+```
+for c in string
+rows[row_number]=c
+row_number++/--(topmost/bottommost 变号)
+for row in rows
+res += row
+```
+这个思路更简洁
++ Approach 2: Visit by Row
+遍历行,每行都有哪些index属于这一样是确定的
