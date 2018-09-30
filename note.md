@@ -11,6 +11,19 @@ http://zxi.mytechroad.com/blog/greedy/leetcode-621-task-scheduler/
 
 http://fisherlei.blogspot.com/
 
+## tag
+### string
+
+Number of substrings of a string : $\frac{n(n+1)}{2}$
+how to count
+
+1. Number of substrings of length 1 is n (We can choose any of the n characters)
+2. Number of substrings of length 2 is n-1 
+substring是相邻字符串,不是排列组合问题,长度为2的子字符串
+abcde->(ab,bc,cd,de)
+3. Number of substrings of length 3 is n-2(We can choose any of the n-2 triplets formed by adjacent)
+4. In general, mumber of substrings of length k is n-k+1 where 1 <= k <= n
+$n + (n-1) + (n-2) + (n-3) + \cdots 2 + 1= \frac{n(n+1)}{2}$
 
 ## leetcode pattern
 
