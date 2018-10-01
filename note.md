@@ -558,4 +558,26 @@ res += row
 ```
 这个思路更简洁
 + Approach 2: Visit by Row
-遍历行,每行都有哪些index属于这一样是确定的
+遍历行,每行都有哪些index属于这一行是确定的
+## 005_Longest_Palindromic_Substring
+一个长度为n的string共有n(n+1)/2个子字符串
+这些子字符串的下标i,j是一个上三角矩阵
+这些子字符串可以按长度k分为k=1层,k=2层..k=n层
++ 暴力解法
+遍历每个子字符串,是O(n^2)
+对每个子字符串判断是否回文,是O(n)
+所以,暴力解法时间复杂度是O(n^3)
++ 动态规划
+怎样利用已经计算过的信息,减少不必要的计算
+怎么得到动态规划的关系式?
+clue:k+1层子字符串可以利用k层子字符串的信息
+利用动态规划,可以把暴力解法的O(n^3)降到O(n^2)
+从超时变成ac
++ Expand Around Center
+进一步降低时间复杂度到O(n^2)
+思路转变
+从所有substring中找回文-->从所有可能的center中找
+所有substring是n^2, 
+所有center却一共可能有2n-1个,对每个center向两边扩展,确定是否回文,复杂度O(n)
+时间复杂度O(n^2)
++ Manacher's Algorithm
