@@ -19,17 +19,47 @@ public:
     }
     string longestPalindrome(string s) 
     {
+        string res;
         size_t s_len = s.length();
-        vector<int> temp(s_len, 0);
         size_t max_len = 0;
         vector< vector<int> > flag(s_len, vector<int>(s_len, 0));
-        for(size_t i = 0; i < s_len;i++)
+        for(size_t k = 1; k <= s_len;k++)
         {
-            flag[i][i]=1;
-            if( i+1 < s_len)
-                flag[i][i+1]= (s[i] == s[i+1]);
-        }        
-        return "";
+            for(size_t i = 0; i+k <= s_len;i++ )
+            {
+                size_t j = i+k-1;
+                if( k == 1)
+                {
+                    flag[i][j] = 1;
+                    max_len = 1;
+                    res = s.substr(i,k);
+                }
+                else if( k == 2)
+                {
+                    if( s[i] == s[j])
+                    {
+                        flag[i][j] = 1;
+                        res = s.substr(i,k);
+                    }
+                    else
+                    flag[i][j] = 0;
+                }
+                else
+                {
+                    if(flag[i+1][j-1] and s[i] == s[j] )
+                    {
+                        flag[i][j] = 1;
+                        max_len = k;
+                        res = s.substr(i,k);
+                    }
+                    else
+                    {
+                        flag[i][j] = 0;
+                    }
+                }
+            }
+        }
+        return res;
 
     }
     string longestPalindrome_brute_force(string s) 
@@ -55,9 +85,8 @@ public:
 };
 int main(int argc, char const *argv[])
 {
-    string s("babab");    
+    string s("cbbd");    
     Solution sol;
     cout<<sol.longestPalindrome(s);
-    cout<<sol.is_Palindrome(s);
     return 0;
 }
