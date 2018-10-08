@@ -24,6 +24,9 @@ public:
             {
                 sum = sum*10+(str[index]-'0');
                 index++;
+                //|-2147483647 to +2147483647| <= int_max
+                //|-infinty to -2147483648| > 2147483647
+                //|+2147483648 to  +infinty| > 2147483647
                 if(sum > INT_MAX)
                 return (plus==1) ? INT_MAX: INT_MIN;
             }
