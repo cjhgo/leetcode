@@ -99,6 +99,7 @@ https://leetcode.com/problems/second-minimum-node-in-a-binary-tree
 https://leetcode.com/problems/serialize-and-deserialize-binary-tree
 https://leetcode.com/problems/reverse-vowels-of-a-string/description/
 https://leetcode.com/problems/orderly-queue/description/
+https://leetcode.com/problems/valid-number/description/
 
 ## Smallest Good Base @18.06.20
 
@@ -581,3 +582,45 @@ clue:k+1层子字符串可以利用k层子字符串的信息
 所有center却一共可能有2n-1个,对每个center向两边扩展,确定是否回文,复杂度O(n)
 时间复杂度O(n^2)
 + Manacher's Algorithm
+## 008_String_to_Integer
+动手之前仔细构思一下/写完重构一下
+代码可以写的更简洁
+一次遍历,遍历的同时求累加和
+overflow的时候停止遍历,return
+"2357"->2357的算法
+不必是 `7+ 5*10+3*100+2*1000`
+(这个思路导致了,
+遍历得到完整的数字串,然后从右向左取每一位求和的写法
+依靠完整数字串的长度来判断overflow又要额外处理
+0000000000000这种情况,很笨的思路
+)
+可以是 `0*10+2=2,2*10+3=23,23*10+5=235,235*10+7=2357`
+这种写法
+不需要依靠完整数字串的长度来判断overflow
+不需要考虑"0000000000000"这种情况
+
+判断overflow
+由于int_max和int_min不对称,因此
+看起来,要根据正负的情况分别考虑
+```c++
+//v1,不太直观
+求sum之前,判断
+if (sum > (INT_MAX- ((str[index]-'0'))) / 10)
+return (plus==1) ? INT_MAX: INT_MIN; 
+
+//v2,分别判断,不太简洁
+if(sum*plus >= INT_MAX) return INT_MAX;
+if(sum*plus <= INT_MIN) return INT_MIN;
+
+//v3,简洁直观
+求sum之后,判断
+int_max  2147483647
+int_min -2147483648
+看起来,要根据正负的情况分别考虑
++/-2147483647是对称的,需要考虑的是
+-2147483648这个值
+|int_min| > int_max
+按照overflow处理,结果一样
+if(sum > INT_MAX)
+return (plus==1) ? INT_MAX: INT_MIN;
+```
