@@ -17,7 +17,6 @@ public:
                 minlen_str = str;
             }
         }
-        cout<<minlen<<"\t"<<minlen_str<<endl;
         while(minlen > 0)
         {
             int i = 0;
@@ -31,16 +30,15 @@ public:
                     break;
             }
             if( i == strs.size())
-            break;
+               break;
             minlen--;
         }
-        cout<<minlen<<"\t"<<minlen_str.substr(0,minlen)<<endl;
         return minlen_str.substr(0,minlen);
     }
 };
 int main(int argc, char const *argv[])
 {
-    vector<string> strs = {"xlower","flow","flight"};
+    vector<string> strs = {"flower","flow","flight"};
     Solution sol;
     cout<<sol.longestCommonPrefix(strs)<<endl;
     return 0;
