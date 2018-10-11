@@ -1,4 +1,6 @@
 #include<vector>
+#include<set>
+#include<tuple>
 #include<algorithm>
 #include<map>
 #include<iostream>
@@ -6,34 +8,39 @@ using namespace std;
 class Solution 
 {
 public:
-    vector<int> twoSum(vector<int>& nums, int target, bool& flag) 
+    set<vector<int>> twoSum(vector<int>& nums, int target, bool& flag) 
     {
+        set< vector<int>> ret;        
         size_t n = nums.size();
-        vector<int> result(2,0);
+        vector<int> result;
         map<int,int> value_to_index;
         flag=false;
         for(int i = 0;i < n; i++)
         {
+            vector<int> result;
             int to_find = target-nums[i];
             auto res = value_to_index.find(to_find);
             
             if(res != value_to_index.end() )
-            {            
-                result[0]=nums[i];
-                result[1]=to_find;//value_to_index[to_find];
+            {   
+                result.push_back(0-target);
+                result.push_back(nums[i]);
+                result.push_back(to_find);
                 flag=true;
-                break;
+                sort(result.begin(), result.end());
+                ret.insert(result);
             }
             value_to_index[nums[i]] = i;
         }        
-        return result;
+        return ret;
     }
+    
     vector<vector<int>> threeSum(vector<int>& nums) 
     {
-        vector<vector<int>> result;
+        set<vector<int>>  result;
         for(auto it = nums.begin(); it != nums.end(); it++)
         {
-            vector<int> temp, temp2;
+            vector<int>temp, temp2;
             int target = 0 - *it;
             temp2.insert(temp2.begin(), nums.begin(),it);
             temp2.insert(temp2.end(), it+1,nums.end());
@@ -41,19 +48,16 @@ public:
             auto ret = twoSum(temp2, target, flag);
             if(flag)
             {
-                temp.push_back(*it);
-                temp.insert(temp.end(), ret.begin(), ret.end());
-                cout<<*it<<"\t"<<target<<"\t"<<"\t"<<ret[0]<<"\t"<<ret[1]<<endl;
-                result.push_back(temp);
+                result.insert(ret.begin(), ret.end());
             }
         }
-        return result;
+        return {result.begin(), result.end()};
     }
 };
 int main(int argc, char const *argv[])
 {
     Solution sol;
-    vector<int> nums = {-1, 0, 1, 2, -1, -4};
+    vector<int> nums = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};//{-1, 0, 1, 2, -1, -4};
     auto ret = sol.threeSum(nums);
     for(auto e: ret)
     {
