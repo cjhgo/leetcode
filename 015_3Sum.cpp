@@ -8,47 +8,22 @@ using namespace std;
 class Solution 
 {
 public:
-    set<vector<int>> twoSum(vector<int>& nums, int index, bool& flag) 
-    {
-        set< vector<int>> ret;        
-        size_t n = nums.size();
-        vector<int> result;
-        map<int,int> value_to_index;
-        flag=false;
-        int target = 0 - nums[index];
-        for(int i = 0;i < n; i++)
-        {
-            if(i == index) continue;
-            vector<int> result;
-            int to_find = target-nums[i];
-            auto res = value_to_index.find(to_find);
-            
-            if(res != value_to_index.end() )
-            {   
-                result.push_back(0-target);
-                result.push_back(nums[i]);
-                result.push_back(to_find);
-                flag=true;
-                sort(result.begin(), result.end());
-                ret.insert(result);
-            }
-            value_to_index[nums[i]] = i;
-        }        
-        return ret;
-    }
-    
     vector<vector<int>> threeSum(vector<int>& nums) 
     {
         set<vector<int>>  result;
-        for(auto it = nums.begin(); it != nums.end(); it++)
+        sort(nums.begin(), nums.end());
+        
+        for(auto it = nums.begin(); it != (nums.end()-2); it++)
         {
-            vector<int>temp;
-            int target = 0 - *it;
-            bool flag;
-            auto ret = twoSum(nums, std::distance(nums.begin(), it), flag);
-            if(flag)
+            set<int> need;
+            for(auto it2= it+1; it2 != nums.end();it2++)
             {
-                result.insert(ret.begin(), ret.end());
+                if(need.find(*it2) == need.end())
+                {
+                    need.insert(-*it-*it2);
+                }
+                else
+                    result.insert({*it, *it2, 0-*it-*it2});
             }
         }
         return {result.begin(), result.end()};
