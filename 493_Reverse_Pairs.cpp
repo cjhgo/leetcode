@@ -26,33 +26,35 @@ public:
             }
             d++;
         }
-        while(a <= middle || c <= right)
-        {
-            if( a <= middle && c > right)
-            {
-                temp.push_back(nums[a]);
-                a++;                
-            }
-            else if( a > middle && c <= right)
-            {
-                temp.push_back(nums[c]);
-                c++;                
-            }
-            else if( a <= middle &&  c <= right)
-            {
-                if(nums[c] < nums[a])
-                {   
-                    temp.push_back(nums[c]);
-                    c++;
-                }
-                else
-                {
-                    temp.push_back(nums[a]);
-                    a++;
-                }
-            }
-        }
-                
+        // while(a <= middle || c <= right)
+        // {
+        //     if( a <= middle && c > right)
+        //     {
+        //         temp.push_back(nums[a]);
+        //         a++;                
+        //     }
+        //     else if( a > middle && c <= right)
+        //     {
+        //         temp.push_back(nums[c]);
+        //         c++;                
+        //     }
+        //     else if( a <= middle &&  c <= right)
+        //     {
+        //         if(nums[c] < nums[a])
+        //         {   
+        //             temp.push_back(nums[c]);
+        //             c++;
+        //         }
+        //         else
+        //         {
+        //             temp.push_back(nums[a]);
+        //             a++;
+        //         }
+        //     }
+        // }
+        merge(nums.begin()+left, nums.begin()+middle+1,
+                nums.begin()+middle+1, nums.begin()+right+1,
+                back_inserter(temp));                        
         copy(temp.begin(), temp.end(), nums.begin()+left);
         
         return count;
