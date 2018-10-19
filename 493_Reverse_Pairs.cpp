@@ -56,7 +56,10 @@ public:
                 nums.begin()+middle+1, nums.begin()+right+1,
                 back_inserter(temp));                        
         copy(temp.begin(), temp.end(), nums.begin()+left);
-        
+        // use merge sort 
+        // do not use sort algorihtm, 
+        // cause left /right part is already sorted
+        // sort(nums.begin()+left, nums.begin()+right+1);
         return count;
     }
     int reverse(vector<int>& nums, size_t left, size_t right)
