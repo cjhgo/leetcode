@@ -1,35 +1,89 @@
 #include<vector>
+#include<iterator>
+#include<algorithm>
 #include<iostream>
 using namespace std;
 class Solution 
 {
 public:
-
-    int helper(vector<int>& nums, size_t left, size_t right);
+    int helper(vector<int>& nums, size_t left, size_t right)
     {
-
+        int count = 0;        
+        size_t a = left, middle = (left+right)/2, c=middle+1;
+        size_t d = middle+1 ,e = left;
+        vector<int> temp;
+        while( d <= right)
+        {
+            while( e <= middle )
+            {
+                if( (int64_t)nums[d]*2 < nums[e])
+                {
+                    count += (middle -e +1);
+                    break;
+                }
+                else
+                    e++;
+            }
+            d++;
+        }
+        while(a <= middle || c <= right)
+        {
+            if( a <= middle && c > right)
+            {
+                temp.push_back(nums[a]);
+                a++;                
+            }
+            else if( a > middle && c <= right)
+            {
+                temp.push_back(nums[c]);
+                c++;                
+            }
+            else if( a <= middle &&  c <= right)
+            {
+                if(nums[c] < nums[a])
+                {   
+                    temp.push_back(nums[c]);
+                    c++;
+                }
+                else
+                {
+                    temp.push_back(nums[a]);
+                    a++;
+                }
+            }
+        }
+                
+        copy(temp.begin(), temp.end(), nums.begin()+left);
+        
+        return count;
     }
     int reverse(vector<int>& nums, size_t left, size_t right)
-    {
-        if(left+1 = right)
+    {        
+        if(left == right)
+        return 0;
+        if(left+1 == right)
         {
+            int count = 0;
             if(nums[left] > (int64_t)nums[right]*2)
-            return 1;
-            else
-            return 0;
+            count = 1 ;
+            if(nums[left] > nums[right])
+            swap(nums[left], nums[right]);
+            return count;
+
         }
         else
         {
-            int middle = left+right/2;
-            int left = reverse(nums, left, middle);
-            int right = reverse(nums, middle+1, right);
+            int middle = (left+right)/2;
+            int leftv = reverse(nums, left, middle);
+            int rightv = reverse(nums, middle+1, right);
             int both = helper(nums, left, right);
-            return left+right+both;
+            return leftv+rightv+both;
         }
 
     }
     int reversePairs(vector<int>& nums) 
     {
+        if(nums.size() < 2) return 0;
         return reverse(nums, 0, nums.size()-1);
     }
     int reversePairs2(vector<int>& nums) 
@@ -47,10 +101,12 @@ public:
     }
 };
 int main(int argc, char const *argv[])
-{
-    vector<int> nums ={2147483647,2147483647,2147483647,2147483647,2147483647,2147483647};
-    //{2,4,3,5,1};
+{    
+    //vector<int> nums = {2147483647,2147483647,2147483647,2147483647,2147483647,2147483647};    
+    vector<int> nums = {1,3,2,3,1};
     Solution sol;
     cout<<sol.reversePairs(nums)<<endl;
+    for(auto e: nums)
+    cout<<e<<"\t";
     return 0;
 }
