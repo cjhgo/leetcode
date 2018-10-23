@@ -55,7 +55,7 @@ public:
     {
         if(digits.size() == 0)
         {
-            return {""};
+            return {};
         }
         else if(digits.size() == 1)
         {
