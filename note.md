@@ -624,3 +624,38 @@ int_min -2147483648
 if(sum > INT_MAX)
 return (plus==1) ? INT_MAX: INT_MIN;
 ```
+
+## 017_Letter_Combinations_of_a_Phone_Number
+给出未知长度的元素的组合
+不知道长度,就不知道写多少重循环
+对此,可以用递归解决
+问题怎样分,怎样合 这一思想的胜利
+
+backtracking ??
+## 019_Remove_Nth_Node_From_End_of_List
+循环不变量
+
+二级指针覆盖
+pre->next = cur->next
+
+分情况,为什么正确,,
+
+free vs delete
+## 021_Merge_Two_Sorted_Lists
+摆脱
+```c++
+while(l1 & l2)
+if(l1)
+if(l2)
+```
+的写法
+使用
+```c++
+for(;l1 1= null)
+{
+    if(l2 == null)
+      return 
+}
+//l1 == null
+return
+```
