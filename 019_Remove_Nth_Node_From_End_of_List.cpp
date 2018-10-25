@@ -1,9 +1,10 @@
 #include<iostream>
 using namespace std;
-/**
- * Definition for singly-linked list.
- * 
- **/
+static const auto x=[](){
+    std::ios::sync_with_stdio(false);
+    std:cin.tie(nullptr);
+    return nullptr;
+}(); 
 struct ListNode {
     int val;
     ListNode* next;
@@ -14,8 +15,7 @@ class Solution
 public:
     ListNode* removeNthFromEnd(ListNode* head, int n) 
     {
-        ListNode *pre, *cur,  *sentienl;    
-        //pre=cur=next=sentienl=head;             
+        ListNode *pre, *cur,  *sentienl;             
         cur = head;
         sentienl = cur;
         int count = 0;
@@ -25,9 +25,7 @@ public:
             sentienl = sentienl->next;            
         }
         if( sentienl == NULL)
-        {
-            ListNode* ret = head->next;
-            // free(head);
+        {            
             return head->next;
         }
         else
@@ -55,7 +53,7 @@ int main(int argc, char const *argv[])
     d.next = &e;
     Solution sol;
     //ListNode* res = sol.removeNthFromEnd(&a, 3);
-    ListNode* res = sol.removeNthFromEnd(&a, 5);
+    ListNode* res = sol.removeNthFromEnd(&a, 3);
     while( res != NULL)
     {
         cout<<res->val<<"\t";
