@@ -14,7 +14,43 @@ class Solution
 public:
     bool isValid(string s) 
     {
-        stack<char> s;       
+        stack<char> mystack;
+
+        map<char,char> expect = {
+            {'(', ')'},
+            {'[', ']'},
+            {'{', '}'}
+        };
+        while(not s.empty())
+        {
+            char a = s[0];
+            if(a == '(' || a == '{' || a == '['  )
+            {
+                mystack.push(a);
+                s = s.substr(1);
+            }                      
+            else
+            {
+                if( mystack.empty() )
+                    return false;
+                else
+                {
+                    char top = mystack.top();
+                    char expect_char = expect[top];
+                    if( a == expect_char)
+                    {
+                        mystack.pop();
+                        s = s.substr(1);
+                    }
+                    else
+                        return false;
+                }
+            }                        
+        }
+        if( mystack.empty() )
+            return true;
+        else
+            return false;
     }
 };
 int main(int argc, char const *argv[])
