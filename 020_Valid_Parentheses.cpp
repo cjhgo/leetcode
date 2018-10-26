@@ -24,11 +24,8 @@ public:
         while(not s.empty())
         {
             char a = s[0];
-            if(a == '(' || a == '{' || a == '['  )
-            {
+            if(a == '(' || a == '{' || a == '['  )            
                 mystack.push(a);
-                s = s.substr(1);
-            }                      
             else
             {
                 if( mystack.empty() )
@@ -38,14 +35,12 @@ public:
                     char top = mystack.top();
                     char expect_char = expect[top];
                     if( a == expect_char)
-                    {
                         mystack.pop();
-                        s = s.substr(1);
-                    }
                     else
                         return false;
                 }
             }                        
+            s = s.substr(1);
         }
         if( mystack.empty() )
             return true;
