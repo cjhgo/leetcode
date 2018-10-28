@@ -1,0 +1,56 @@
+#include<iostream>
+#include<vector>
+#include<string>
+#include<map>
+using namespace std;
+static const auto x=[](){
+    std::ios::sync_with_stdio(false);
+    std:cin.tie(nullptr);
+    return nullptr;
+}(); 
+struct ListNode 
+{
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
+};
+
+class Solution 
+{
+public:
+    ListNode* swapPairs(ListNode* head) 
+    {
+        if( head == NULL) return head;
+        ListNode *first = head, *second = head->next;
+        if( second == NULL) return head;
+        else
+        {
+            ListNode *end=second->next;        
+            head = second;
+            head->next = first;
+            
+            if( end != NULL )
+            end = swapPairs(end);
+
+            first->next = end;
+            return head;            
+        }
+    }
+};
+int main(int argc, char const *argv[])
+{
+    ListNode a(1), b(2), c(3), d(4), e(5);
+    a.next = &b;
+    b.next = &c;
+    c.next = &d;
+    d.next = &e;
+
+    Solution sol;
+    ListNode* res = sol.swapPairs(&a);
+    while( res != NULL)
+    {
+        cout<<res->val<<"\t";
+        res =res->next;
+    }
+    return 0;
+}
