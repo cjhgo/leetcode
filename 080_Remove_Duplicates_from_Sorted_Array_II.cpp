@@ -19,7 +19,7 @@ public:
         {
             if( nums[i] != nums[counter-2])
             {
-                nums[counter] = nums[2];
+                nums[counter] = nums[i];
                 counter++;
             }
         }
