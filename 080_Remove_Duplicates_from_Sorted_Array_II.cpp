@@ -11,8 +11,21 @@ static const auto x=[](){
 class Solution 
 {
 public:
-
     int removeDuplicates(vector<int>& nums) 
+    {
+        if(nums.size() < 2) return nums.size();
+        int counter = 2, cnt=0;
+        for(size_t i = 2; i < nums.size(); i++)
+        {
+            if( nums[i] != nums[counter-2])
+            {
+                nums[counter] = nums[2];
+                counter++;
+            }
+        }
+        return counter;
+    }
+    int removeDuplicates2(vector<int>& nums) 
     {
         if(nums.size() < 2) return nums.size();
         int counter = 1, cnt=0;
