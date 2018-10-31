@@ -13,6 +13,7 @@ class Solution
 public:
     int removeDuplicates(vector<int>& nums) 
     {
+        if(nums.size() < 2) return nums.size();
         int counter = 1;
         for(size_t i = 1; i < nums.size(); i++)
         {
