@@ -20,38 +20,25 @@ class Solution
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) 
     {
-        
-        ListNode *cur = head, *pre;// = new ListNode(-1);// = cur;
+        ListNode *cur = head, *new_head = new ListNode(-1), *pre = new_head;
+        new_head->next = head;
         int i = 1;
-        if ( m == 1)
+        while( i < m)
         {
-            pre = new ListNode(-1);
-            pre->next = cur;
-        }
-        else
-        {
-            while( i < m)
-            {
-                pre = cur;
-                cur = cur->next;
-                i++;
-            }
-        }        
-        ListNode* tail = cur;
-        cur = cur->next;
-        tail->next = NULL;
-        i++;
-        while( i <= n)
-        {
-            ListNode* ori = pre->next;
-            pre->next = cur;
-            cur  = cur->next;
-            pre->next->next = ori;
+            pre = cur;
+            cur = cur->next;
             i++;
         }
-        if( cur != NULL)tail->next = cur;
-        if( m == 1) return pre->next;
-        else return head;
+
+        while( i < n)
+        {
+            ListNode* to_move = cur->next;
+            cur->next = to_move->next;
+            to_move->next = pre->next;
+            pre->next = to_move;        
+            i++;    
+        }
+        return new_head->next;
     }
 };
 int main(int argc, char const *argv[])
