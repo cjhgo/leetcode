@@ -11,7 +11,7 @@ static const auto x=[](){
 class Solution 
 {
 public:
-    int removeElement(vector<int>& nums, int val) 
+    int removeElement2(vector<int>& nums, int val) 
     {
         int counter = 0;
         for(size_t i = 0; i < nums.size(); i++)
@@ -23,6 +23,20 @@ public:
             }
         }
         return counter;
+    }
+    int removeElement(vector<int>& nums, int val) 
+    {
+        size_t n = nums.size(), i = 0;
+        while(i < n)
+        {
+            if(nums[i] != val)
+            i++;
+            else//nums[i] == val
+            {
+                nums[i] = nums[n-1];
+                n--;
+            }
+        }
     }
 };
 int main(int argc, char const *argv[])
