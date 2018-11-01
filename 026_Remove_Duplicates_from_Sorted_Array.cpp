@@ -17,11 +17,15 @@ public:
         int counter = 1;
         for(size_t i = 1; i < nums.size(); i++)
         {
-            if( nums[i] != nums[i-1])
+            if( nums[i] != nums[counter-1])
             {
+                //loop invariant
+                //index: c-2,c-1,c,...,i-1,i
+                //value: x  ,a  ,a,...,  a,b
                 nums[counter] = nums[i];
                 counter++;
             }
+
         }
         return counter;
     }
