@@ -414,6 +414,8 @@ i从0到two开始遍历
 如果n=100,2^100这个数字已经无法用size_t表示了,也就无法遍历了
 100个元素的list的所有子集就不能求了??
 一定有其他高效的算法吧??
+看一下讨论...
+https://leetcode.com/problems/subsets/discuss/
 ## 046_Permutations
 给出一个长度为n的vector的全排列
 我的思路
@@ -624,6 +626,159 @@ int_min -2147483648
 if(sum > INT_MAX)
 return (plus==1) ? INT_MAX: INT_MIN;
 ```
+## 3sum,4sum,求和系列
+基础知识, 排列组合
+$P_n^m=(n-0)(n-1)(n-2)\cdots(n-(m-1))\\
+C_n^m=\frac{P_n^m}{m!}$
+所以,
+从n个数里任取两个,是O(n^2)
+从n个数里任取三个,是O(n^3)
+3sum 面试
+https://zhuanlan.zhihu.com/p/24681450
+https://en.wikipedia.org/wiki/3SUM
+https://leetcode.com/problems/3sum/discuss/7402/Share-my-AC-C++-solution-around-50ms-O(N*N)-with-explanation-and-comments
+vector<vector<int> > threeSum(vector<int> &num) 
+{
+    
+    vector<vector<int> > res;
+
+    std::sort(num.begin(), num.end());
+
+    for (int i = 0; i < num.size(); i++) 
+    {
+        
+        int target = -num[i];
+        int front = i + 1;
+        int back = num.size() - 1;
+
+        while (front < back) 
+        {
+
+            int sum = num[front] + num[back];
+            
+            // Finding answer which start from number num[i]
+            if (sum < target)
+                front++;
+
+            else if (sum > target)
+                back--;
+
+            else 
+            {
+                vector<int> triplet(3, 0);
+                triplet[0] = num[i];
+                triplet[1] = num[front];
+                triplet[2] = num[back];
+                res.push_back(triplet);
+                
+                // Processing duplicates of Number 2
+                // Rolling the front pointer to the next different number forwards
+                while (front < back && num[front] == triplet[1]) front++;
+
+                // Processing duplicates of Number 3
+                // Rolling the back pointer to the next different number backwards
+                while (front < back && num[back] == triplet[2]) rear--;
+            }
+            
+        }
+
+        // Processing duplicates of Number 1
+        while (i + 1 < num.size() && num[i + 1] == num[i]) 
+            i++;
+
+    }
+    
+    return res;
+    
+}
+## 排列组合
+## 493_Reverse_Pairs
+笨办法/brute force 
+遍历所有pair, 需要$O(n^2)$
+基本idea
+如果
+$T(n)=T(\frac{n}{2})+T(\frac{n}{2})+O(n)\\
+则T(n)=O(nlogn)$
+
+//这个公式很厉害,不需要具体的代码实现和算法思路
+//就知道了算法时间复杂度比$O(n^2)$低了
+
+
+问题怎么分?
+输入是一个长度为n的数组
+分成左一半,右一半
+假设我已经知道了怎么算left part和right part的逆序数
+现在还需要算 left right之间的逆序对
+所以,
+combine (合)的时候,怎么实现O(n)呢?
+idea:
+如果left/right part 已经有序
+那么按照归并排序的思路
+遍历一遍,就能知道left,right之间的逆序对数目!
+
+为什么遍历一遍,就能知道所有逆序对?
+
+### 归并排序
+怎样优雅的实现归并排序?
+```
+for (; first1 != last1; ++d_first) {
+    if (first2 == last2) {
+        return std::copy(first1, last1, d_first);
+    }
+    if (*first2 < *first1) {
+        *d_first = *first2;
+        ++first2;
+    } else {
+        *d_first = *first1;
+        ++first1;
+    }
+}
+return std::copy(first2, last2, d_first);
+```
+while
+if ...
+if ...
+怎么调用算法库中的归并排序
+从std::merge+copy
+到std::inplace_merge
+```c++
+class Solution {
+public:
+    int reversePairs(vector<int>& nums) {
+        return reversePairs(nums.begin(), nums.end());
+    }
+
+    int reversePairs(vector<int>::iterator a, vector<int>::iterator b) {
+        if (b - a <= 1) return 0;
+        auto mid = (distance(a, b) >> 1) + a;
+        int vl = reversePairs(a, mid);
+        int vr = reversePairs(mid, b);
+        int vm = 0;
+        for (auto pl = a, pr = mid; pr < b; ++pr) {
+            while ((int64_t)*pl <= *pr * (int64_t)2 && pl < mid) ++pl;
+            vm += distance(pl, mid);
+        }
+        inplace_merge(a, mid, b);
+        return vl + vr + vm;
+    }
+};
+```
+学习排名第一的实现的代码:
+我们的思路是一样的,但是显然,这个实现更简洁
+
++ 我怎么不知道 inplace_merge 这个函数,
++ 函数签名用iterator begin, end  代替 nums, left, right
++ 用四行代码代替了我的helper函数
+### profile
+要根据场景从算法库中选择sort算法
+profile一下
+left right 已经有序的情况下
+sort 和 inplace merge 的时间复杂度
+确实有必要弄清
+quicksort merge 
+的平均,最好,最坏,时间复杂度
+合适会蜕化
+quicksort 不是万能的,,
 
 ## 017_Letter_Combinations_of_a_Phone_Number
 给出未知长度的元素的组合
@@ -641,6 +796,7 @@ pre->next = cur->next
 分情况,为什么正确,,
 
 free vs delete
+cppman std::free
 ## 021_Merge_Two_Sorted_Lists
 摆脱
 ```c++
@@ -658,4 +814,119 @@ for(;l1 1= null)
 }
 //l1 == null
 return
+
+while (l1 && l2) {
+    if (l1->val < l2->val) {
+        tail->next = l1;
+        l1 = l1->next;
+    } else {
+        tail->next = l2;
+        l2 = l2->next;
+    }
+    tail = tail->next;
+}
+
+tail->next = l1 ? l1 : l2;
 ```
+https://leetcode.com/problems/merge-k-sorted-lists/description/
+https://leetcode.com/problems/merge-sorted-array/description/
+https://leetcode.com/problems/sort-list/description/
+
+## 020_Valid_Parentheses
+使用stack解决这一问题
+
+看一下官方的思路
+https://leetcode.com/articles/valid-parentheses/#
+
+https://leetcode.com/problems/generate-parentheses
+https://leetcode.com/problems/longest-valid-parentheses
+https://leetcode.com/problems/remove-invalid-parentheses
+## 022_Generate_Parentheses
+bruteforce
+backtracing
+算法课上的思路,,剪枝??
+看一下官方的solution
+https://leetcode.com/articles/generate-parentheses/#
+## 024_Swap_Nodes_in_Pairs.cpp
+从最简单的case 入手
+两个我会不会做,
+三个我会不会做
+结果怎么合
+算法课上学到的思路的胜利
+
+## 215_Kth_Largest_Element_in_an_Array
+找数组中第k大的元素
+
+sort(nums.rbegin(), nums.rend());
+为什么这样就是 降序了?
+
+用sort是很显然可行的
+但是没必要
+
+查看其他solution
+std::nth_element - nth_element is a partial sorting algorithm that rearranges elements in [first, last)
+std::partition 
+这些都是干嘛的?
+
+## Remove系列
+### 026_Remove_Duplicates_from_Sorted_Array
+去除 有序数组中的重复元素(只保留一个),类似std::unique
+[0,0,1,1,1,2,2,3,3,4]->[0,1,2,3,4,?,?,?,?,?]
+It doesn't matter what you leave beyond the returned length.
+这个要求和v.erase(unique(v.begin,v.end), v.end)中的操作是对应的
+
+思路:双指针,快指针和慢指针
+我的思路:
+loop invariant:counter
+property
+index: c-2,c-1,c,...,i-1,i
+value: x  ,a  ,a,...,  a,b
+counter左边,[0,counter)是已经满足去重性质的部分
+counter是待插入位置,遇到`nums[i] != nums[i-1]`的情况
+说明来到了连续元素的开始区,插入,++
+条件进一步从`nums[i] != nums[i-1]`  
+改为`nums[i] != nums[counter-1]`是等价的
+因为, nums[c-1,i-1]范围内的值是连续的等值
+
+### 027_Remove_Element
+去除数组中的指定元素,类似std::remove
+remove([0,1,2,2,3,0,4,2],2)->[0,1,3,0,4]
+我的思路:和026类似
+条件变为`nums[i] != val`
+上述算法 存在问题 **when elements to remove are rare**
+数组赋值次数等于 不需要remove的元素的个数
+如果要remove的元素很少,那么就会有很多没必要的数组赋值
+when elements to remove are rare
+数组赋值次数要等于 number of elements to remove
+发生赋值的判断条件要改为`nums[i] == val`
+这就是solution中的另一算法
+### 080_Remove_Duplicates_from_Sorted_Array_II
+问题和026类似,区别在于,
+026中重复元素保留一个
+080中重复元素保留两个
+数组赋值条件也从
+026中的`if( nums[i] != nums[counter-1])`
+修改为`if( nums[i] != nums[counter-2])`即可
+why
+026中loop invariant:c性质如下
+index: c-2,c-1,c,...,i-1,i
+value: x  ,a  ,a,...,  a,b
+nums[i]和nums[c-1]比,
+080中loop invariant:c保证
+c左边部分重复元素最多出现两次
+那么无非两种可能
+index: c-2,c-1,c,...,i-1,i
+case1: x  ,a  ,         
+case2: a  ,a  ,
+nums[i]只要和nums[c-2]不等,即可进行数组赋值
+
+
+https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/
+## 282_Expression_Add_Operators.cpp
+backtracking
+https://leetcode.com/problems/expression-add-operators/solution/#
+## 28. Implement strStr()
+strstr implementation
+https://www.google.com/search?q=strstr+implementation
+kmp 
+rabin karp ??
