@@ -1,14 +1,12 @@
 #include<vector>
+#include <algorithm>
 using namespace std;
 class MinStack 
 {
 private:
     vector<int> data;
-    int min;
 public:
-    /** initialize your data structure here. */
     MinStack()
-    :min(2147483647)
     {
             
     }
@@ -16,8 +14,6 @@ public:
     void push(int x) 
     {
         data.push_back(x);
-        if( x < min)
-        min = x;
     }
     
     void pop() 
@@ -32,7 +28,6 @@ public:
     
     int getMin() 
     {
-        return min;
+        return *min_element(data.begin(), data.end());
     }
 };
-
