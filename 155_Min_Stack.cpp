@@ -1,4 +1,5 @@
 #include<vector>
+#include<stack>
 #include<iostream>
 using namespace std;
 static const auto x=[](){
@@ -6,46 +7,10 @@ static const auto x=[](){
     std:cin.tie(nullptr);
     return nullptr;
 }(); 
-class MyStack
-{
-private:
-    vector<int> data;
-    int mysize;
-public:
-    MyStack():
-    mysize(0),data(100,0)
-    {
-    }
-    
-    void push(int x) 
-    {
-        if(mysize == data.size())
-        {
-            data.resize(data.size()+100);
-        }
-        data[mysize] = x;
-        mysize++;        
-    }
-    
-    void pop() 
-    {
-        mysize--;
-    }
-    
-    int top() 
-    {
-        return data[mysize-1];
-    }
-    bool empty()
-    {
-        return mysize == 0;
-    }
-};
-
 class MinStack 
 {
 private:
-    MyStack sdata,smin;
+    stack<int> sdata,smin;
 public:
     /** initialize your data structure here. */
     MinStack() 
