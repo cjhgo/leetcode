@@ -1,8 +1,6 @@
 #include<algorithm>
 #include<iostream>
 #include<vector>
-#include<string>
-#include<map>
 using namespace std;
 static const auto x=[](){
     std::ios::sync_with_stdio(false);
@@ -15,8 +13,10 @@ public:
     {
         for(auto row : matrix)
         {
-            bool it = binary_search(row.begin(), row.end(), target);
-            if( it )return true;
+            if(  row.size() > 0 and row[row.size()-1] < target)
+            continue;
+            if( binary_search(row.begin(), row.end(), target) )
+            return true;
         }
         return false;
     }
