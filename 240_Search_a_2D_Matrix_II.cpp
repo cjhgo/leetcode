@@ -9,14 +9,21 @@ static const auto x=[](){
     std:cin.tie(nullptr);
     return nullptr;
 }(); 
-class Solution {
+class Solution 
+{
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) 
-    {
-        for(auto row : matrix)
+    {        
+        if( matrix.size() < 1) return false;
+        int i = 0, j = matrix[0].size() -1;
+        while( i < matrix.size() && j >= 0)
         {
-            bool it = binary_search(row.begin(), row.end(), target);
-            if( it )return true;
+            if(matrix[i][j] == target)
+            return true;
+            else if( matrix[i][j] > target)
+            j--;
+            else if( matrix[i][j] < target)
+            i++;
         }
         return false;
     }
