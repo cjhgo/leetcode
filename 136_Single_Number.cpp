@@ -13,15 +13,16 @@ class Solution
 public:
     int singleNumber(vector<int>& nums) 
     {
-        int64_t flag;
+        int64_t flag=0;
         for(auto e : nums)    
-        {
-            
-        }
+            flag ^= e;
+        return flag;
     }
 };
 int main(int argc, char const *argv[])
 {
+    vector<int> nums = {4,1,2,1,2};
     Solution sol;
+    cout<<sol.singleNumber(nums);
     return 0;
 }
