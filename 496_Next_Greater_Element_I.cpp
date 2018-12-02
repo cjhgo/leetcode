@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<stack>
 #include<map>
 using namespace std;
 static const auto x=[](){
@@ -10,7 +11,7 @@ static const auto x=[](){
 class Solution 
 {
 public:
-    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) 
+    vector<int> nextGreaterElement2(vector<int>& findNums, vector<int>& nums) 
     {
         map<int,int> value_to_pos;
         size_t nsize = nums.size();
@@ -34,7 +35,27 @@ public:
         }
         return res;       
     }
-};
+    vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) 
+    {
+        map<int,int> value_to_nge;
+        stack<int> mystack;
+        for(auto e : nums)
+        {
+            while( mystack.size() > 0 and mystack.top() < e)
+            {
+                value_to_nge[mystack.top()] = e;
+                mystack.pop();
+            }
+            mystack.push(e);
+        }
+        vector<int> res;        
+        for(auto e: findNums)
+        {
+            res.push_back( value_to_nge.count(e) > 0 ? value_to_nge[e] : -1 );
+        }
+        return res;       
+    }
+};    
 int main(int argc, char const *argv[])
 {
     Solution sol;
