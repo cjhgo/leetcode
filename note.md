@@ -986,3 +986,36 @@ https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/description/
 https://leetcode.com/problems/valid-perfect-square/description/
 https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/
 https://leetcode.com/problems/nth-magical-number/description/
+
+## 496_Next_Greater_Element_I
+A是一个整数数组,B是A的子集
+B[j]对应A[i],找到A(i...n)中第一个大于A(i)的元素
+记x=B[j]=A[i]  f(x)=Next Greater Element of x
+最直观的解法, O(n^2) 使用map
+遍历A[,得到map M[A[i]] = i
+然后遍历B, 记k=M[B[j]] 
+从k到 n-1遍历 A ,找到目标值
+但这并不是最优的解法
+这是一个stack tag的题目,却没用到stack
+改进的解法 使用map+stack
+在遍历A的时候,
+就通过栈建立了map
+这个map直接从 A[i] 映射  f(A[i])
+而不是在普通解法中 映射 A[i]
+怎么做到的?
+遍历A:for e in A
+栈中存储着e左边的元素
+每次把栈中比e小的元素k都pop出去,建立映射M[k]=e
+然后把e入栈
+```c++
+for (int n : nums) {
+    while (s.size() && s.top() < n) {
+        m[s.top()] = n;
+        s.pop();
+    }
+    s.push(n);
+}
+```
+https://leetcode.com/problems/next-greater-element-ii
+https://leetcode.com/problems/next-greater-element-iii
+https://leetcode.com/problems/daily-temperatures
