@@ -1019,3 +1019,47 @@ for (int n : nums) {
 https://leetcode.com/problems/next-greater-element-ii
 https://leetcode.com/problems/next-greater-element-iii
 https://leetcode.com/problems/daily-temperatures
+
+## Single Number
+BitManipulation
+### 异或操作的性质
+0. `x^0 = x 且 x^x = 0`
+1. 交换律
+2. 结合律
+结合律的证明 (A^B)^C=A^(B^C)
+往往要依赖把表达式两边展开,最终相等
+要想展开,就需要知道 A^B=(A'B+AB')
+或者`x ^ y == (~x & y) | (x & ~y)`
+3. **自反性质**
+是异或最重要的性质,我竟然不知道...
+并且我也不能从结合律和A^0=A这一点推出来
+不引人临时变量交换两个整数的值,就依赖
+异或操作的自反性质
+自反性质指的是什么?
+a^b^b=(a^(b^b)=a^0)=a
+即,一个数和同一个数两次异或,不变 
+这个顺序可以根据交换律和结合律来任意调整
+
+### 136_Single_Number1
+一个整数数组中,有一个元素出现了一次,其他的出现了两次
+找出这个元素
+如果不要求常数空间和线性时间复杂度
+这确实是一个easy level的题目
+想要以S(1)+O(n)条件找到这个数
+就需要用到前边补充的异或的自反性质
+
+到后边,的single number 2/3
+感觉已经变成了智力,数学题了,,
+
+### Single Number2
+http://artori.us/exclusive-or/
+### Single Number3
+## 268. Missing Number
+问题描述
+长度为n的数组A
+存放了0 1 2 ... n这n+1个数中的n
+找到哪个数没存
+求sum(0,n)-sum(A) 即可找到 missing number
+
+如果求和溢出的话
+可以用前边异或的自反性质
