@@ -960,3 +960,29 @@ head->head'sNext
 reverse(head'sNext)
 head->next->next=head
 ```
+
+## 074/240 search 2d matrix
+问题描述,在一个给定矩阵中查找某一模板是否存在
+第一个问题中矩阵的性质,074
+每行有序,每行第一个大于上一行最后一个
+即,矩阵按行排列是有序的,因此可以使用二分查找
+根据下标转换,把整个矩阵当成一个有序数组,手动进行二分查找
+如果仅仅使用每行有序的性质,则可以
+for-atuo矩阵,对每行使用std::binary_search查找
+第二个问题中矩阵的性质,240
+每行有序,每列有序
+但是,按行排列,矩阵并不是有序的
+对于元素A[i][j]/e有,e的左边都比它小,e的下边都比它大
+因此,可以这么查找
+A[i][j]从A[0][n-1],即矩阵右上角开始
+在左下部分查找target
+分 =/>/<的情况
+每次只要不等,向左移动一列,或向下移动一行
+原问题变为一个规模变小的子问题
+时间复杂度为O(m+n)
+recommend
+https://leetcode.com/problems/dungeon-game/description/
+https://leetcode.com/problems/max-sum-of-rectangle-no-larger-than-k/description/
+https://leetcode.com/problems/valid-perfect-square/description/
+https://leetcode.com/problems/find-minimum-in-rotated-sorted-array-ii/description/
+https://leetcode.com/problems/nth-magical-number/description/
