@@ -1063,3 +1063,25 @@ http://artori.us/exclusive-or/
 
 如果求和溢出的话
 可以用前边异或的自反性质
+
+## 070. Climbing Stairs
+每次上一层或两层,楼梯有多少种爬法
+用动态规划算法解决此问题
+动态规划怎么用的?
+问题有最优子结构的性质
+As we can see this problem can be broken into subproblems, and it contains the optimal substructure property i.e. its optimal solution can be constructed efficiently from optimal solutions of its subproblems, we can use dynamic programming to solve this problem.
+The key intuition to solve the problem 
+There is NO overlapping between these two solution sets, because we differ in the final step
+问题输入的结构
+总是假设我们已经找到了问题的解法
+爬n层楼梯有A(n)种爬法
+找合适的分点,A(n)和子问题的关系
+把问题当成决策的过程
+分类用加法,分步用乘法
+分类
+第一步上一层+剩下n-1层的爬法A(n-1)
+第一步上二层+剩下n-2层的爬法A(n-2)
+A(n)=A(n-1)+A(n-2)
+问题的解还是一个斐波那契数列
+这是一个easy level的题目
+我的错误的思路,是怎么回事
