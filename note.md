@@ -925,8 +925,38 @@ https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description
 ## 282_Expression_Add_Operators.cpp
 backtracking
 https://leetcode.com/problems/expression-add-operators/solution/#
-## 28. Implement strStr()
+## 28_Implement_strStr()
 strstr implementation
 https://www.google.com/search?q=strstr+implementation
 kmp 
 rabin karp ??
+## 206_Reverse_Linked_List
+题目描述:转置链表
+我的思路:
+遍历链表,使用头插法到另一个head
+然后return head->next
+
+官方solution 遍历迭代版本
+
+分析转置之前
+`ppre <- pre->cur->next -> nnext`
+cur之前的元素已经转置完毕,现在处理到cur
+转置之后
+`ppre <- pre <- cur -- next ->nnext`
+即 把cur的next指针指向pre
+由于是单链表,要保存pre
+欲向前遍历,要保存一个tempNext
+```c++
+tempNext=cur->next
+cur->next = pre
+pre=cur
+cur=temp
+```
+官方solution 递归版本
+把单链表分成两部分
+head->head'sNext
+```c++
+//注意递归中栈底情况的判断
+reverse(head'sNext)
+head->next->next=head
+```
