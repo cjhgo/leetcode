@@ -27,12 +27,25 @@ public:
         int not_buy_at_l = solve(prices, l+1, r);
         return max(buy_at_l, not_buy_at_l);
     }
-    int maxProfit(vector<int>& prices) 
+    int maxProfit2(vector<int>& prices) 
     {
         if( prices.size() > 0)
             return solve(prices, 0, prices.size()-1);
         else
             return 0;
+    }
+    int maxProfit(vector<int>& prices) 
+    {
+        int MinPrice = INT32_MAX;
+        int MaxProfit = 0;
+        for(auto e : prices)
+        {
+            if( e < MinPrice)
+                MinPrice = e;
+            else if( (e - MinPrice) > MaxProfit)
+                MaxProfit = e - MinPrice;
+        }
+        return MaxProfit;
     }
 };
 int main(int argc, char const *argv[])
