@@ -13,9 +13,22 @@ class Solution {
     map<int, vector<int> > node_to_neighbors;
     map<int, UndirectedGraphNode*> node_to_nodeptr;
 public:
-
+    void show_edge_list()
+    {
+        for(auto e : node_to_neighbors)
+        {   
+            cout<<"edge "<<e.first<<" -> \n";
+            for(auto ee : e.second)
+            {
+                cout<<"\t"<<ee<<endl;
+            }
+            cout<<endl;
+        }        
+        cout<<endl<<endl;             
+    }
     void get_edge_list(UndirectedGraphNode *node)
     {
+        if( node == nullptr) return;
         int key = node->label;
         if( node_to_neighbors.find(key) == node_to_neighbors.end())
         {
@@ -65,6 +78,11 @@ int main(int argc, char const *argv[])
     n1.neighbors={&n2, &n3};
 
     Solution sol;
-    sol.cloneGraph(&n1);
+    UndirectedGraphNode* nn = sol.cloneGraph(&n1);
+    sol.show_edge_list();
+
+    Solution sol2;
+    sol2.get_edge_list(nn);
+    sol2.show_edge_list();
     return 0;
 }
