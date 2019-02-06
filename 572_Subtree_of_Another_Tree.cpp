@@ -27,17 +27,19 @@ public:
     }
     bool isSubtree(TreeNode* s, TreeNode* t) 
     {
-        if( s==nullptr and t==nullptr)
+        if(isIdentical(s, t) )
             return true;
-        else if( s!=nullptr and t!=nullptr)
+        if(s->left)
         {
-            if( isIdentical(s, t))
+            if(isSubtree(s->left, t))
                 return true;
-            else
-                return isSubtree(s->left, t) or isSubtree(s->right, t);                
         }
-        else
-            return false;
+        if(s->right)
+        {
+            if(isSubtree(s->right, t))
+                return true;
+        }
+        return false;
     }
 };
 int main(int argc, char const *argv[])
