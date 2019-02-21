@@ -19,10 +19,9 @@ public:
         typedef enum{ RED,BLUE,GREEN } PARTITE;
         vector<COLOR> visited;
         vector<PARTITE> partite;
+        std::queue<int> myqueue;
         for(size_t i = 0; i < graph.size();i++)
-        {
-
-            std::queue<int> myqueue;
+        {            
             visited.clear();partite.clear();
             visited.resize(graph.size(), WHITE);
             partite.resize(graph.size(), GREEN);
@@ -35,8 +34,7 @@ public:
                 for(auto neighbor: graph[top])
                 {
                     if(partite[neighbor]==partite[top])
-                            return false;
-                    
+                        return false;                    
                     else if(visited[neighbor]==WHITE)
                     {
                         visited[neighbor]=GRAY;
