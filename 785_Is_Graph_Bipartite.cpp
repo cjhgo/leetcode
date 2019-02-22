@@ -17,20 +17,23 @@ public:
     {
         typedef enum{ WHITE,GRAY,BLACK } COLOR;
         typedef enum{ RED,BLUE,GREEN } PARTITE;
+        vector<bool> judged(graph.size(), false);
         vector<COLOR> visited;
         vector<PARTITE> partite;
         std::queue<int> myqueue;
         for(size_t i = 0; i < graph.size();i++)
-        {            
+        {   
+            if(judged[i])continue;
             visited.clear();partite.clear();
             visited.resize(graph.size(), WHITE);
             partite.resize(graph.size(), GREEN);
             visited[i]=GRAY;
             partite[i]=RED;
-            myqueue.push(i);
+            myqueue.push(i);        
             while(not myqueue.empty())
             {
                 int top = myqueue.front();
+                judged[top]=true;
                 for(auto neighbor: graph[top])
                 {
                     if(partite[neighbor]==partite[top])
