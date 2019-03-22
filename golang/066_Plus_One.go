@@ -5,26 +5,17 @@ import "fmt"
 //array to number +1 to array can not cope with big integer
 //add one and judge carry flag
 func plusOne(digits []int)[]int{
-  var d_len = len(digits)
-  digits[d_len-1]++
-  var carry=false
-  if digits[d_len-1] == 10 {
-	digits[d_len-1] = 0
-	carry=true
+  plus := 1
+  for j := len(digits)-1; j >= 0; j--{
+	digits[j]++
+	if digits[j] == 10{
+	  digits[j] = 0
+	}else{
+	  plus = 0
+	  break
+	}
   }
-  var i int
-  for i = d_len-2; i >= 0; i--{
-	if carry{
-	  digits[i]++
-	  if(digits[i] == 10){
-		digits[i]=0
-		carry=true
-	  }else{
-		break
-	  }
-	}	
-  }  
-  if carry && i == -1{
+  if plus == 1{
 	digits=append([]int{1},digits...)
   }
   return digits
