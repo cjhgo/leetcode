@@ -17,38 +17,59 @@ public:
     {
       if(s.size() < 2) return 0;
       int longest=0;
-      int count=0;
-      bool panic=false;
-      stack<char> match;
-      for(size_t i = 0; i < s.size();i++)
-      {
-        if(panic)
+      typedef pair<char,size_t> ele_type;
+      stack<ele_type> match;
+      size_t i = 0;
+      match.push({s[i],i});
+      while(not  match.empty() || (i+1) < s.size())
+      {        
+        if( i+1 ==s.size())break;
+        ele_type next{s[i+1],i+1};
+        if( not match.empty() && match.top().first == '(' && next.first==')')
         {
-          if(count > longest) longest=count;
-          count=0;
-        }
-        match.push(i);
-        while(not match.empty())
+          match.pop();
+        }else
         {
-          char next = s[++i];
-          if(match.top() == ')')
-          {
-            panic=true;
-            break;
-          }
-        }
-
+          match.push(next);
+        }          
+        i++;                
       }
+      if (match.empty())return s.size();
+      else
+      {        
+        vector<size_t> not_match;        
+        while(not match.empty())
+        {        
+          not_match.push_back(match.top().second);
+          match.pop();
+        }  
+        int temp =s.size()-1 - not_match[0];        
+        if(  temp > longest) longest=temp;
+        temp = not_match[not_match.size()-1]-0;
+        if(  temp > longest) longest=temp;
+        for(int i = 0;i+1 <= not_match.size()-1;i++)
+        {
+          temp = not_match[i]-not_match[i+1]-1;
+          if(  temp > longest) longest=temp;
+        }
+      }
+      return longest;
     }
 };
 int main(int argc, char const *argv[])
 {
   Solution sol;
   string s = "";
-  cout<<sol.longestValidParentheses(s);
-  string s = "(";
-  cout<<sol.longestValidParentheses(s);
-  string s = "())(()())";
-  cout<<sol.longestValidParentheses(s);
+  cout<<sol.longestValidParentheses(s)<<endl<<endl;
+  s = "(";
+  cout<<sol.longestValidParentheses(s)<<endl<<endl;
+  s = "()";
+  cout<<sol.longestValidParentheses(s)<<endl<<endl;  
+  s = "())(()())";
+  cout<<sol.longestValidParentheses(s)<<endl<<endl;  
+  s=")()())";
+  s="()(()";
+  s=")()())";
+  cout<<sol.longestValidParentheses(s)<<endl<<endl;
   return 0;
 }
