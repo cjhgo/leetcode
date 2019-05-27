@@ -155,11 +155,77 @@ public:
     }
 };
 
+class Solution2 
+{
+public:
+    string helper(const string& s ,int& i)
+    {
+        int number=0;
+        stringstream res;            
+        while( isdigit(s[i]))
+        {
+            number = (number*10+s[i]-'0');
+            i++;
+        }
+        if(s[i] == '[')
+        {
+            stringstream ss;
+            i++;
+            while (true)
+            {
+                if(isalpha(s[i]))
+                {
+                    ss<<s[i];
+                    i++;
+                    continue;
+                }else if(s[i] == ']')
+                {
+                    i++;
+                    break;
+                }else if(isdigit(s[i]))
+                {
+                    ss<<helper(s,i);
+                    continue;
+                }
+            }
+            for(int i = 0; i < number;i++)
+            {
+                res<<ss.str();
+            }
+        }    
+        return res.str();    
+    }
+    string decodeString(string s) 
+    {
+        if(s.length() < 1) return "";
+        int i = 0;
+        stringstream ss;
+        while (true)
+        {
+            if( i == s.length())break;
+            if( isdigit(s[i]))
+            {
+                ss<<helper(s,i);
+            }else if(isalpha(s[i]))
+            {
+                ss<<s[i];
+                i++;
+            }                
+        }        
+        return ss.str();
+    }
+};
+
 int main(int argc, char const *argv[])
 {
     Solution s;
     //string str = "2[abc]3[cd]ef";
     string str = "3[a]2[b4[F]c]";//"2[2[b]]";//2[abc]3[cd]ef";
     cout<<s.decodeString(str)<<endl;
+
+    Solution2 s2;
+    cout<<s2.decodeString(str)<<endl;
+    cout<<s2.decodeString("2[abc]3[cd]ef")<<endl;
+    cout<<s2.decodeString("100[leetcode]")<<endl;
     return 0;
 }
