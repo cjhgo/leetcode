@@ -18,30 +18,17 @@ public:
         vector<int> right;
         for(int j = nums.size()-1; j >= 0; j--)
         {
-          int ok = 0, pos=-1;
-          for(int i = 0; i < right.size(); i++)
+          for(int i = nums.size()-1; i > j ; i--)
           {
-            if(right[i] > nums[j])
+            if(nums[i] > nums[j])
             {
-              ok = 1;
-              pos = i;
-              break;
+              swap(nums[j],nums[i]);
+              sort(nums.begin()+j+1, nums.end());
+              return;
             }
           }
-          if(ok)
-          {
-            swap(nums[j],right[pos]);
-            break;
-          }else
-          {
-            right.push_back(nums[j]);
-            nums.erase(nums.begin()+j);
-          }
         }
-        sort(right.begin(),right.end());
-        nums.insert(nums.end(), right.begin(),right.end());
-        for(auto e:nums)cout<<e;
-        cout<<endl;
+        sort(nums.begin(),nums.end());        
     }
     void Permuate(vector<int>& nums)
     {
@@ -49,9 +36,10 @@ public:
       while (true)
       {
         nextPermutation(nums);
+        for(auto e: nums)cout<<e;
+        cout<<endl;
         if(nums == init)break;
-      }
-      
+      }      
     }
 };
 int main(int argc, char const *argv[])
