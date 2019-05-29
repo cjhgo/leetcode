@@ -13,9 +13,8 @@ static const auto x=[](){
 class Solution 
 {
 public:
-    void nextPermutation(vector<int>& nums) 
+    void nextPermutation2(vector<int>& nums) 
     {
-        vector<int> right;
         for(int j = nums.size()-1; j >= 0; j--)
         {
           for(int i = nums.size()-1; i > j ; i--)
@@ -30,14 +29,32 @@ public:
         }
         sort(nums.begin(),nums.end());        
     }
+    void nextPermutation(vector<int>& nums) 
+    {
+        int j = nums.size()-1;
+        while ( j >= 1 && nums[j] <= nums[j-1])
+        {
+          j--;
+        }
+        if( j >= 1)
+        {
+          int k = nums.size() - 1;
+          while (nums[k] <= nums[j-1])
+          {
+            k--;
+          }          
+          swap(nums[k], nums[j-1]);          
+        }
+        sort(nums.begin()+j, nums.end());   
+        for(auto e: nums)cout<<e;
+        cout<<endl;  
+    }    
     void Permuate(vector<int>& nums)
     {
       auto init = nums;
       while (true)
       {
         nextPermutation(nums);
-        for(auto e: nums)cout<<e;
-        cout<<endl;
         if(nums == init)break;
       }      
     }
@@ -49,8 +66,11 @@ int main(int argc, char const *argv[])
   sol.nextPermutation(nums);
   nums={1,3,4,2};
   sol.nextPermutation(nums);
-  nums={4,3,2,1};
+  nums={1,5,1};
+  sol.nextPermutation(nums);  
+  nums={5,7,8,2,3,1,9,6};
   sol.nextPermutation(nums);
+
 
   cout<<endl;
   nums={1,2,3,4};
