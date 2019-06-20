@@ -13,6 +13,7 @@ static const auto x=[](){
 class Solution 
 {
 public:
+
     int findKthLargest1(vector<int>& nums, int k) 
     {
         //逆序增序,即顺序降序
@@ -26,26 +27,35 @@ public:
         std::nth_element(nums.begin(),nums.begin()+nums.size()-k,nums.end());
         return nums[nums.size()-k];
     }
-
-    void findKthByPart(vector<int>::iterator first, vector<int>::iterator last, vector<int>& nums, int k0)
-    {   
-        int pivot = *first;
-        auto it = std::partition(first,last, [pivot](int e){return e > pivot;});        
-        auto m = distance(first, it);         
-        if( m == 0 & k0 == 0)return;
-        if( k0 < m)
-            findKthByPart(first, it, nums,k0);
-        else//k0 >= m
+    int partition(vector<int>::iterator begin, vector<int>::iterator end)
+    {
+        int pivotIndex = std::rand()%std::distance(begin,end);
+        int pivot = *(begin+pivotIndex);
+        std::iter_swap(begin, begin+pivotIndex);
+        vector<int>::iterator m = begin;
+        for(auto iter = begin+1; iter != end; iter++)
         {
-            if(m== 0)
-            findKthByPart(it+1, last, nums,k0-m-1);
-            else
-            findKthByPart(it, last, nums,k0-m);
-        }                    
+            if(*iter > pivot)
+            {
+                iter_swap(++m, iter);
+            }
+        }
+        std::iter_swap(begin, m);        
+        return std::distance(begin, m);
+    }
+    void findKthByPart(vector<int>::iterator first, vector<int>::iterator last, int k0)
+    {   
+        if(first == last)return;
+        int m = partition(first, last);
+        if( m == k0 ) return;
+        else if( k0 < m )
+            findKthByPart(first, first+m, k0);
+        else if( m < k0 )
+            findKthByPart(first+m+1, last, k0-m-1);
     }
     int findKthLargest(vector<int>& nums, int k) 
     {
-        findKthByPart(nums.begin(),nums.end(),nums,k-1);
+        findKthByPart(nums.begin(),nums.end(),k-1);
         return nums[k-1];    
     }
     
@@ -63,7 +73,7 @@ int main(int argc, char const *argv[])
     cout<<sol.findKthLargest(nums2,1)<<endl;
     nums2={-1,2,0};
     cout<<sol.findKthLargest(nums2,1)<<endl;
-    nums2={3,1,2,4};
+    nums2={3,2,1,5,6,4};
     cout<<sol.findKthLargest(nums2,2)<<endl;    
     return 0;
 }
