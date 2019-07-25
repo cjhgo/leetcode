@@ -15,10 +15,7 @@ struct TrieNode
   char ele;
   bool iskey;  
   TrieNode* children[26];
-  TrieNode(char c):ele(c),iskey(false)
-  {
-    std::fill(std::begin(children),std::end(children),nullptr);
-  };
+  TrieNode(char c):ele(c),iskey(false),children{nullptr}{};
 };
 class Trie 
 {
