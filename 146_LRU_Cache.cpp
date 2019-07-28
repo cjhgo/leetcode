@@ -24,29 +24,33 @@ public:
     LRUCache(int capacity_):capacity(capacity_){};
     int get(int key) 
     { 
-      if(not cache_map.count(key)) return -1;      
+      //cache不存在这个key
+      if(not cache_map.count(key)) return -1;
+
       auto ele = cache_map[key];
+      //cache中存在这个key,根据key得到对应的链表节点,插入到front
       cache.splice(cache.begin(), cache, ele);
-      int value = (*ele).second;
-      return value;
+      return (*ele).second;
     }
     
     void put(int key, int value) 
     {
+
       if(cache_map.count(key))
-      {    
+      {//cache中已经存在这个key了,更新value,然后promote对应的链表节点
         auto ele = cache_map[key];
         (*ele).second=value;
         cache.splice(cache.begin(), cache, ele);
         return;
       }
       if( cache.size() == capacity)
-      {
+      {//cache已满,把最后一个删掉,既要从map中删,也要从list中删
         auto last = cache.back();
         int oldkey = last.first;
         cache_map.erase(oldkey);
         cache.pop_back();
       }
+      //在front创建一个key,value,map保存key和对应的iterator
       cache.emplace_front(key,value);
       cache_map[key] = cache.begin();
     }
