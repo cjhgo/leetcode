@@ -2,10 +2,20 @@
 #include <algorithm>
 #include <string>
 using namespace std;
-int lcs[1002][1002];
+
+/**
+ * 题目链接: https://www.nowcoder.com/questionTerminal/28c1dc06bc9b4afd957b01acdf046e69
+ * 题目来源: 腾讯2017暑期实习生编程题,难度2星
+ * 题目说明 
+ * 给定一个字符串s，你可以从中删除一些字符，使得剩下的串是一个回文串。
+ * 如何删除才能使得回文串最长呢？输出需要删除的字符个数。
+ * 最长回文串 等价于 lcs(string, reverse_string) 
+ * 因此这道题可以通过 最长公共子序列(lcs) 这个原型题目来解决
+ */
+
   int lcs_iteraion(string A, string B, int m, int n)
   {
-    // int lcs [m][n];
+    int lcs [m][n];
     for(int i = 0; i < m; i++)
     for(int j = 0; j < n; j++)
     {
@@ -31,9 +41,7 @@ int lcs[1002][1002];
         }
       }
     }
-
     return lcs[m-1][n-1];
-    // std::cout<<i<<"\t"<<j<<"\t"<<helper(A,B,i,j)<<std::endl;        
   }
 int main(int argc, char const *argv[])
 {
