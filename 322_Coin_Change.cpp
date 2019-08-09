@@ -42,11 +42,34 @@ public:
       printMatrix<int>((int*)dp, n+1, amount+1);
       return dp[n][amount];
     }
+    int coinChange2(vector<int>& coins, int amount)
+    {
+      int n = coins.size();
+      int dp[n+1][amount+1];      
+      
+      for(int i = 0; i <=n; i++)
+      dp[i][0] = 0;
+      for(int i = 0; i <= amount; i++)
+      dp[0][i] = INT32_MAX;
+      dp[0][0]=0;
+
+      for(int i = 1; i <= n; i++)
+      for(int j = 1; j <= amount; j++)
+      {
+        int a = dp[i-1][j];
+        if( j - coins[i-1] >= 0 && dp[i][j-coins[i-1]] < INT32_MAX)
+        {
+          dp[i][j] = std::min(a,dp[i][j-coins[i-1]]+1);
+        }else dp[i][j] = a;
+      }
+      printMatrix<int>((int*)dp, n+1, amount+1);
+      return dp[n][amount] == INT32_MAX ? -1 : dp[n][amount];
+    }    
 };
 int main(int argc, char const *argv[])
 {
   Solution sol;
   vector<int> coins = {1,2,5};
-  cout<<sol.coinChange(coins,11);
+  cout<<sol.coinChange2(coins,11);
   return 0;
 }

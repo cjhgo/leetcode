@@ -28,13 +28,18 @@ public:
       for(int i = 1; i <= n; i++)
       for(int j = 1; j <= amount; j++)
       {
-        int temp = 0;
+        /**
+         int temp = 0;
         for(int k = 0; k <=  j/coins[i-1];k++)
         {
           int temp2 = j - k*coins[i-1];
           temp += dp[i-1][temp2];
         }
         dp[i][j] = temp;
+        **/
+        dp[i][j] = dp[i-1][j];
+        if( j - coins[i-1] >= 0)
+        dp[i][j] += dp[i][j-coins[i-1]];
       }
       return dp[n][amount];
     }
