@@ -11,6 +11,33 @@ struct TreeNode {
 };
 class Solution {
 public:
+    bool Conv2(TreeNode* root, TreeNode*& head, TreeNode*& tail)
+    {
+      head = tail = root;
+      if( root == nullptr)
+      {
+        // head=tail=nullptr;
+        return false;
+      }else 
+      {
+        
+        TreeNode *lefthead=nullptr,*lefttail=nullptr;
+        if (Conv2(root->left,lefthead, lefttail))
+        {
+          head = lefthead;
+          lefttail->right = root;
+          root->left = lefttail;
+        }
+        TreeNode *righthead=nullptr, *righttail=nullptr;
+        if (Conv2(root->right, righthead, righttail))
+        {
+          tail = righttail;
+          root->right = righthead;
+          righthead->left = root;          
+        }
+        return true;
+      }
+    }
     void Conv(TreeNode* root, TreeNode*& head, TreeNode*& tail)
     {
       if(root == nullptr)
@@ -48,7 +75,7 @@ public:
     TreeNode* Convert(TreeNode* pRootOfTree)
     {
         TreeNode* head=nullptr, *tail = nullptr;
-        Conv(pRootOfTree, head, tail);
+        Conv2(pRootOfTree, head, tail);
         return head;
     }
 };
